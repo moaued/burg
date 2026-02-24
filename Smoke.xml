@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Smoke Test Suite" verbose="2">
+    <test name="Reports">
+        <groups>
+            <run>
+                <include name="Smoke"/>
+            </run>
+        </groups>
+        <classes>
+<!--            <class name="reports.BriefcaseReportsTest"/>-->
+            <class name="reports.TransactionFollowUpReportsTest"/>
+            <class name="reports.TransactionGeneralReportsTest"/>
+<!--            <class name="reports.TransactionReportsTest"/>-->
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,11 @@
+{
+  "followUpReport1": {
+    "type": "الكل"
+  },
+  "followUpReport2": {
+    "type": "وارد خارجي"
+  },
+  "followUpReport3": {
+    "type": "صادر خارجي"
+  }
+}

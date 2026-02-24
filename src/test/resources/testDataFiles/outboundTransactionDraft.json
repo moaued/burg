@@ -1,0 +1,18 @@
+{
+  "attachment1": {
+    "type": "خريطة",
+    "validity": "الكل",
+    "location": "src/main/resources/uploads/inTransactionAttachments/Attachment001.pdf"
+  },
+  "copy1": {
+    "orgUnitNum": "1",
+    "orgUnitName": "مكتب الوزير",
+    "copyReason": "للمفاهمة حضوريا"
+  },
+  "externalCopy1": {
+    "orgUnitName": "جهات ومؤسسات عامة",
+    "orgUnitNumber": "100003",
+    "copyReason": "للمفاهمة حضوريا",
+    "reporterName": "مراسل"
+  }
+}

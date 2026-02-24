@@ -1,0 +1,11 @@
+{
+  "tasksReport1": {
+    "type": "الكل"
+  },
+  "tasksReport2": {
+    "type": "وارد خارجي"
+  },
+  "tasksReport3": {
+    "type": "صادر خارجي"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "outgoingDestination": "مؤسسات خاصة ومكاتب",
+  "civilId": "2302979923",
+  "attachment1": {
+    "type": "خريطة",
+    "location": "src/main/resources/uploads/outTransactionAttachments/Attachment001.pdf"
+  },
+  "attachment2": {
+    "type": "رسالة",
+    "location": "src/main/resources/uploads/outTransactionAttachments/Attachment002.pdf"
+  }
+}

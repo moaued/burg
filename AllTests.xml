@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Smoke Test" verbose="2">
+    <test name="تقارير">
+        <packages>
+            <package name="reports"/>
+        </packages>
+    </test>
+    <test name="معاملات">
+       <packages>
+           <package name="transactions.صادر_عام"/>
+           <package name="transactions.المعاملة_الداخلية"/>
+           <package name="transactions.وارد_عام"/>
+           <package name="transactions.المتابعة"/>
+           <package name="transactions.حقيبة_العرض"/>
+           <package name="transactions.سلة_الارساليات"/>
+         <package name="transactions.سلة_الصور"/>
+         <package name="transactions.سلة_التعاميم"/>
+         <package name="transactions.المتابعة"/>
+         <package name="transactions.الحقيبة"/>
+       </packages>
+    </test>
+    <test name="الرقم الموحد">
+        <packages>
+            <package name="unifiedNumber"/>
+        </packages>
+    </test>
+</suite>

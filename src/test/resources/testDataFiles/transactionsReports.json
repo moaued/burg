@@ -1,0 +1,22 @@
+{
+  "transactionReport1": {
+    "type": "الكل"
+  },
+  "transactionReport2": {
+    "type": "وارد خارجي"
+  },
+  "transactionReport3": {
+    "type": "صادر خارجي"
+  },
+  "generalTransactions": {
+    "report1": {
+      "type": "الكل"
+    },
+    "report2": {
+      "type": "أصل"
+    },
+    "report3": {
+      "type": "صورة"
+    }
+  }
+}

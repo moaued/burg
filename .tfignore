@@ -1,0 +1,13 @@
+.DS_Store
+/allure-report/
+/allure-results/
+/.idea/
+/.vs/
+/execution-summary/
+/performanceReport/
+/target/
+/src/main/resources/downloads/*
+/src/main/resources/downloads/AssignmentPaper/*
+/src/main/resources/downloads/DeliveryStatement/*
+/src/main/resources/downloads/TransactionBarcode/*
+/src/main/resources/downloads/TransactionDeliveryReport/*

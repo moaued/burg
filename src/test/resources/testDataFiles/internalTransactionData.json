@@ -1,0 +1,72 @@
+{
+  "incomingPriority": "عاجل",
+  "incomingDestination": "مؤسسات خاصة ومكاتب",
+  "inboundDocumentNumber": "123456",
+  "civilId": "2302979923",
+  "transactionLetter": "src/main/resources/uploads/inTransactionLetter/InTransactionLetter.pdf",
+  "attachment1": {
+    "type": "خريطة",
+    "validity": "الكل",
+    "location": "src/main/resources/uploads/inTransactionAttachments/Attachment001.pdf"
+  },
+  "attachment2": {
+    "type": "دراسة",
+    "validity": "الادارة المرسلة والمستقبلة للوثيقة",
+    "location": "src/main/resources/uploads/inTransactionAttachments/Attachment002.pdf"
+  },
+  "attachment3": {
+    "type": "رسالة",
+    "validity": "الكل",
+    "location": "src/main/resources/uploads/inTransactionAttachments/Attachment003.pdf"
+  },
+  "copy1": {
+    "orgUnitNum": "1",
+    "orgUnitName": "مكتب الوزير",
+    "copyReason": "للمفاهمة حضوريا"
+  },
+  "copy2": {
+    "orgUnitNum": "3",
+    "orgUnitName": "مكتب نائب الوزير",
+    "copyReason": "فحص الاجراء"
+  },
+  "copy3": {
+    "orgUnitNum": "300",
+    "orgUnitName": "وكالة البيئة",
+    "copyReason": "لإكمال اللازم معا"
+  },
+
+  "followup": {
+    "orgUnitNum": "9394",
+    "orgUnitName": "شعبة نظام براق"
+  },
+  "followup1":{
+    "orgUnitNum": "1",
+    "orgUnitName": "مكتب الوزير"
+  },
+  "followup2":{
+    "orgUnitNum": "3",
+    "orgUnitName": "مكتب نائب الوزير"
+  },
+  "followupRemarkAttachmentLoc": "src/main/resources/uploads/followupRemarkAttachment/Remarks.pdf",
+  "referral1":{
+    "orgUnitNum": "1",
+    "orgUnitName": "مكتب الوزير",
+    "actionType": "فحص الاجراء",
+    "deliveryMethod": "ورقي",
+    "followUpUnit": "شعبة نظام براق"
+  },
+  "referral2":{
+    "orgUnitNum": "3",
+    "orgUnitName": "مكتب نائب الوزير",
+    "actionType": "اختبارالاجراء",
+    "deliveryMethod": "الكتروني",
+    "followUpUnit": "شعبة نظام براق"
+  },
+  "assignmentPaper": {
+    "orgUnitName": "مكتب نائب الوزير"
+  },
+  "linking": {
+    "year": "1447",
+    "transactionNumber": "25001003"
+  }
+}
