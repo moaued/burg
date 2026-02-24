@@ -15,7 +15,8 @@ pipeline {
 
 
         stage('Build & Test') {
-            steps {
+        steps {
+                bat 'chcp 65001'
                 bat 'mvn clean test'
             }
         }
