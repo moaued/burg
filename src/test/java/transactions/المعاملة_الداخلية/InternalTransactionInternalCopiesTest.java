@@ -23,9 +23,9 @@ public class InternalTransactionInternalCopiesTest extends TestBase {
   }
 
   @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+    public void afterTest() {
+        driver.quit();
+    }
 
   //======================
   @Test(description = "[2.8] اضافة نسخ داخلية الى معاملة داخلية")

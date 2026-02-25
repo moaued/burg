@@ -47,6 +47,8 @@ public class InternalTransactionDraftPage {
   private By confirmationAndSuccessModal = By.xpath(
       "//div[contains(@class, 'jconfirm') and contains(@class, 'white')]");
   private By saveModifiedTransactionButton = By.id("btnSaveOutboundInternal");
+  private By saveModifiedTransactionButton2 = By.cssSelector("#btnSaveOutboundInternal.btn");
+
   private By sendAndPrintDeliveryStatement = By.xpath(
       "//button[contains(@class,'move-to-assignment')]");
   private By civilIdNumber = By.id("TransactionName_CivilID");
@@ -109,6 +111,8 @@ public class InternalTransactionDraftPage {
   private By printBarcodeStickerButton = By.xpath(
       "//button[contains(@class, 'btn-site') and contains(@class, 'barcodeSticker-button-popup')]");
   private By printBarcodeButton = By.xpath("//button[contains(@class, 'barcode-button-popup')]");
+  private  By firstAutoCompleteOption =
+      By.xpath("(//div[@id='divAutoComplateMenu']//div)[1]");
 
   @Getter
   private int numberOfBrowserWindows;
@@ -700,10 +704,11 @@ Using normalize-space() instead of text() in order to handle the white spaces va
     goToFollowupTab();
     int numberOfFollowupRequests = getNumberOfFollowupRequests();
     driver.element().click(followupOrgUnitNumber).clear(followupOrgUnitNumber)
-        .type(followupOrgUnitNumber, orgUnitNumber)
-        .type(followupEndDate, followupHijriDate)
-        .type(remarks, "My remarks text")
-    ;
+        .type(followupOrgUnitNumber, orgUnitNumber);
+    driver.element().waitUntil(ElementsOperations.waitForElementToBeReady(firstAutoCompleteOption)).click(firstAutoCompleteOption);
+    driver.element() .type(followupEndDate, followupHijriDate);
+//        .type(remarks,"My remarks text");
+
     driver.element().click(addTransactionFollowupButton)
         .waitUntil(ElementsOperations.waitForElementToBeReady(followupConfirmationAndSuccessModal))
         .click(confirmAddFollowup)
@@ -883,13 +888,43 @@ Using normalize-space() instead of text() in order to handle the white spaces va
     driver.element()
         .waitUntil(ElementsOperations.waitForElementToBeReady(transactionSubject))
         .type(transactionSubject, transactionSubjectText);
-
-
     return this;
-
+  }
+  @Step("تعديل موضوع المعاملة و اعطائه القيمة الحالية للوقت و التاريخ")
+  public InternalTransactionDraftPage modifyInTransactionSubject2() {
+    driver.element().type(subjectTextField, modifiedTransactionDescription);
+    driver.element().type(transactionSubjectTextField,
+        "Transaction Description: " + modifiedTransactionDescription);
+    driver.element().click(inTransactionPriorityLevel)
+        .type(inTransactionPriorityLevel, testData.getTestData("incomingPriority"))
+        .click(inTransactionPriorityLevel);
+    scrollToAndClickSaveButton(saveModifiedTransactionButton2);
+    return this;
+  }
+  @Step("حفظ معاملة معدلة 2")
+  public InternalTransactionDraftPage saveModifiedTransaction3() {
+    driver.element().scrollToElement(basicInfoTab).click(basicInfoTab);
+    scrollToAndClickSaveButton(saveModifiedTransactionButton2);
+    return this;
   }
 
+  @Step("اضافة متابعة الى المعاملة")
+  public InternalTransactionDraftPage addTransactionFollowup2(String orgUnitNumber) {
+    goToFollowupTab();
+    int numberOfFollowupRequests = getNumberOfFollowupRequests();
+    driver.element().click(followupOrgUnitNumber).clear(followupOrgUnitNumber)
+        .type(followupOrgUnitNumber, orgUnitNumber);
+    driver.element().waitUntil(ElementsOperations.waitForElementToBeReady(firstAutoCompleteOption)).click(firstAutoCompleteOption);
+    driver.element() .type(followupEndDate, followupHijriDate)
+        .type(remarks,"My remarks text");
 
+    driver.element().click(addTransactionFollowupButton)
+        .waitUntil(ElementsOperations.waitForElementToBeReady(followupConfirmationAndSuccessModal))
+        .click(confirmAddFollowup)
+        .waitUntilNumberOfElementsToBeMoreThan(transactionFollowupGridRow,
+            numberOfFollowupRequests);
+    return this;
+  }
 
 }
 

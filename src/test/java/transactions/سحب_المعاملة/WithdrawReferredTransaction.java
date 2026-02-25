@@ -66,16 +66,13 @@ public class WithdrawReferredTransaction extends TestBase {
         .withdrawTransaction();
 
     // ⃣ الرجوع إلى صفحة معاملاتي ثم البحث عن المعاملة
-//    myTransactionsPage.navigateToMyTransaction();
-    myTransactionsPage =  myTransactionsPage.navigateToMyTransaction().getTransactionsOperationsComponent()
-        .searchForTransactionWithId(transactionNumber, new MyTransactionsPage(driver));
-    operations.searchForTransactionWithId(transactionNumber, new MyTransactionsPage(driver));
+    myTransactionsPage.navigateToMyTransaction();
 
     // ⃣ التحقق من ظهور المعاملة في معاملاتي
     boolean isReturned =
         myTransactionsPage
             .isTransactionPresent(transactionNumber);
-//    Validations.verifyThat().object(isReturned).isTrue();
+
     Validations.verifyThat()
         .object(isReturned)
         .isTrue()

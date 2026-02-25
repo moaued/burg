@@ -21,7 +21,7 @@ public class LinkInternalTransactionWithNoPermissionTest extends TestBase {
     openBuragApp();
   }
 
-    @AfterMethod
+//    @AfterMethod
 //  public void afterTest() {
 //    driver.quit();
 //  }

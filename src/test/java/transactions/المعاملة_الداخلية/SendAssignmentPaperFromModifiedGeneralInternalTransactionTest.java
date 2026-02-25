@@ -23,9 +23,9 @@ public class SendAssignmentPaperFromModifiedGeneralInternalTransactionTest exten
   }
 
   @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+    public void afterTest() {
+        driver.quit();
+    }
 
   //======================
   @Test(description = "[2.5] ارسال ورقة الاحالة من خلال تعديل معاملة")

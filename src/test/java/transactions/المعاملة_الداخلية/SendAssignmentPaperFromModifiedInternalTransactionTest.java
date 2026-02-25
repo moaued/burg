@@ -21,9 +21,9 @@ public class SendAssignmentPaperFromModifiedInternalTransactionTest extends Test
     openBuragApp();
   }
   @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+    public void afterTest() {
+        driver.quit();
+    }
 
   //=============================
   @Test(description = "[2.10] ارسال ورقة الاحالة من خلال تعديل معاملة داخلية")

@@ -20,15 +20,15 @@ public class InternalTransactionFollowupRequestTest extends TestBase {
     openBuragApp();
   }
 
-  //
-//    @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+
+    @AfterMethod
+    public void afterTest() {
+        driver.quit();
+    }
 
   //======================
-  @Test(description = "[2.4.1] إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة")
-  @Description("[2.4.1] إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة")
+  @Test(description = "إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة[2.4.1] ")
+  @Description("إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة[2.4.1] ")
   public void addFollowupRequestToInternalTransaction() {
 
     SHAFT.TestData.JSON followupData =
@@ -75,6 +75,7 @@ public class InternalTransactionFollowupRequestTest extends TestBase {
             .saveModifiedTransaction()
             .goBackToMyTransactionPage();
 
+
     // Change department to follow-up receiver
     myTransactionsPage.getSystemAdminComponent()
         .changeDepartment(followupData.getTestData("followup1.orgUnitName"));
@@ -104,8 +105,8 @@ public class InternalTransactionFollowupRequestTest extends TestBase {
         .isEqualTo(numberOfAttachmentsOnCard);
   }
 
-  @Test(description = "[2.4.2] اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة")
-  @Description("[2.4.2] اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة")
+  @Test(description = "اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة[2.4.2] ")
+  @Description("اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة[2.4.2] ")
   public void addFollowupRequestFromInternalTransactionCard() {
 
     // Test Data

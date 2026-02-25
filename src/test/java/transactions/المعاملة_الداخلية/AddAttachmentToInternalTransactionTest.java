@@ -75,7 +75,6 @@ public class AddAttachmentToInternalTransactionTest extends TestBase {
     int numberOfAttachmentsBefore = internalTransactionDraftPage.getNumberOfAttachmentsInGrid();
 
 
-
     internalTransactionDraftPage.addAttachment(attachmentsData.getTestData("attachment1.type")
         , attachmentsData.getTestData("attachment1.location") , attachmentsData.getTestData("attachment1.validity"));
     int numberOfAttachmentsAfterFirstAttachment = internalTransactionDraftPage.getNumberOfAttachmentsInGrid();
@@ -92,8 +91,15 @@ public class AddAttachmentToInternalTransactionTest extends TestBase {
     Validations.verifyThat().number(numberOfAttachmentsAfterThirdAttachment).isGreaterThan(numberOfAttachmentsAfterSecondAttachment);
 
     internalTransactionDraftPage.saveModifiedTransaction().printAssignmentPaperFromConfirmation();
+    try {
+      Thread.sleep(5000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
-    internalTransactionDraftPage.saveModifiedTransaction2();
+    internalTransactionDraftPage.addFileToTransactionLetter(attachmentsData.getTestData("transactionLetter"));
+
+    internalTransactionDraftPage.saveModifiedTransaction3();
     myTransactionsPage = internalTransactionDraftPage.goBackToMyTransactionPage()
         .getTransactionsOperationsComponent().searchForTransactionWithId(transactionNumber, new MyTransactionsPage(driver));
     int numberOfAttachmentsOnCard = myTransactionsPage.getNumberOfAttachmentsOnFirstCard();

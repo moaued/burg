@@ -224,9 +224,16 @@ public class MyTransactionsPage extends TransactionsNavigationPanelComponent{
 
   @Step("الذهاب الى سلة معاملاتي")
   public SentTransactionsPage navigateToMyTransaction() {
-    driver.element()
+    driver.element().scrollToElement(myTransactionsMenu)
         .click(myTransactionsMenu);
     return new SentTransactionsPage(driver);
   }
+
+  @Step("تعديل المعاملة الأولى / الذهاب الى صفحة \"تعديل المعاملة\"")
+  public InternalTransactionDraftPage editFirstInTransaction4() {
+    driver.element().click(firstEditTransactionButotn);
+    return new InternalTransactionDraftPage(driver);
+  }
+
 
 }
