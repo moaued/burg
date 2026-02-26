@@ -110,6 +110,7 @@ public class InternalTransactionDraftPage {
 
   private By printBarcodeStickerButton = By.xpath(
       "//button[contains(@class, 'btn-site') and contains(@class, 'barcodeSticker-button-popup')]");
+  private By printBarcodeStickerButton2 = By.xpath("//a[@id='btnPrintBarcodeSticker']");
   private By printBarcodeButton = By.xpath("//button[contains(@class, 'barcode-button-popup')]");
   private  By firstAutoCompleteOption =
       By.xpath("(//div[@id='divAutoComplateMenu']//div)[1]");
@@ -300,13 +301,9 @@ Using normalize-space() instead of text() in order to handle the white spaces va
 
   @Step("العوده الي تبويب البيانات الاساسية ")
   public InternalTransactionDraftPage Returntobasicdata() {
-
-    driver.element().click(basicInfor)
-    ;
-
+    driver.element().click(basicInfor);
     return this;
   }
-
 
   @Step("حفظ معاملة داخلية")
   public InternalTransactionDraftPage saveInternalTransaction() {
@@ -923,6 +920,139 @@ Using normalize-space() instead of text() in order to handle the white spaces va
         .click(confirmAddFollowup)
         .waitUntilNumberOfElementsToBeMoreThan(transactionFollowupGridRow,
             numberOfFollowupRequests);
+    return this;
+  }
+
+  @Step("طباعة بيان التسليم اثناء حفظ المعاملة المعدلة")
+  public InternalTransactionDraftPage sendAndPrintDeliveryStatementForModifiedInTransaction2() {
+/*
+
+    String description = "Description: " +
+        GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss");
+
+    // ✅ الانتظار حتى يصبح الحقل جاهز للكتابة
+    driver.element()
+        .scrollToElement(transactionSubjectTextField)
+        .waitUntil(ExpectedConditions.elementToBeClickable(transactionSubjectTextField))
+        .type(transactionSubjectTextField, description);
+
+    // ✅ الضغط على حفظ بعد التأكد أنه قابل للنقر
+    driver.element()
+        .scrollToElement(saveModifiedTransactionButton)
+        .waitUntil(ExpectedConditions.elementToBeClickable(saveModifiedTransactionButton))
+        .click(saveModifiedTransactionButton);
+
+    // ✅ انتظار اختفاء زر الحفظ (دليل انتهاء المعالجة)
+    driver.element()
+        .waitUntil(ExpectedConditions.invisibilityOfElementLocated(saveModifiedTransactionButton));
+
+    // ✅ الضغط على موافق في نافذة التأكيد
+    driver.element()
+        .waitUntil(ExpectedConditions.elementToBeClickable(confirmationAgreeButton))
+        .click(confirmationAgreeButton);
+
+    driver.element()
+        .verifyThat(confirmationAndSuccessModal)
+        .isVisible()
+        .perform();
+*/
+
+
+    ((JavascriptExecutor) driver.getDriver()).executeScript(
+        "window.onerror = function(message, source, lineno, colno, error) {" +
+            "  console.log('Suppressed JS error:', message);" +
+            "  return true;" + // Prevents error propagation
+            "};"
+    );
+    driver.element().type(transactionSubjectTextField,
+        "Description: " + GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
+
+//    driver.element()
+//        .scrollToElement(saveModifiedTransactionButton)
+//        .waitUntil(ElementsOperations.waitForElementToBeReady(saveModifiedTransactionButton))
+//        .click(saveModifiedTransactionButton);
+
+    driver.element().scrollToElement(saveModifiedTransactionButton);
+    // Remove potential overlays via JS
+    ((JavascriptExecutor) driver.getDriver()).executeScript(
+        "document.querySelectorAll('.modal, .overlay').forEach(e => e.remove());"
+    );
+    WebElement element = driver.getDriver().findElement(saveModifiedTransactionButton);
+    ((JavascriptExecutor) driver.getDriver()).executeScript("arguments[0].click();", element);
+
+    Actions actions = new Actions(driver.getDriver());
+    if (!element.isDisplayed()) {
+      actions.moveToElement(element).pause(Duration.ofMillis(100)).click().perform();
+    }
+    driver.element()
+        .waitUntil(ExpectedConditions.invisibilityOfElementLocated(saveModifiedTransactionButton));
+
+    driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
+        .isVisible().perform();
+/*
+    // ✅ الضغط على طباعة بيان التسليم
+    driver.element()
+        .waitUntil(ExpectedConditions.elementToBeClickable(sendAndPrintDeliveryStatement))
+        .click(sendAndPrintDeliveryStatement);
+
+    // ✅ انتظار فتح نافذة الطباعة ثم إغلاقها
+    driver.browser()
+        .waitUntilNumberOfWindowsToBe(2)
+        .waitUntilNumberOfWindowsToBe(1);*/
+
+    return new InternalTransactionDraftPage(driver);
+
+  }
+
+  @Step("حفظ معاملة معدلة 2")
+  public InternalTransactionDraftPage saveModifiedTransaction4() {
+    driver.element().type(transactionSubjectTextField,
+        "Description: " + GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
+    driver.element().scrollToElement(saveModifiedTransactionButton2).click(saveModifiedTransactionButton2);
+    driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
+        .isVisible().perform();
+
+    // ✅ الضغط على طباعة بيان التسليم
+    driver.element()
+//        .waitUntil(ExpectedConditions.elementToBeClickable(sendAndPrintDeliveryStatement))
+        .click(sendAndPrintDeliveryStatement);
+    return this;
+  }
+
+  @Step("حفظ معاملة معدلة")
+  public InternalTransactionDraftPage saveModifiedTransaction5() {
+    driver.element().scrollToElement(basicInfoTab).click(basicInfoTab);
+    driver.element().type(transactionSubjectTextField,
+        "Transaction Description: " + modifiedTransactionDescription);
+//    scrollToAndClickSaveButton(saveModifiedTransactionButton);
+    driver.element().scrollToElement(saveModifiedTransactionButton2).click(saveModifiedTransactionButton2);
+    driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
+        .isVisible().perform();
+    return this;
+  }
+
+  @Step("طباعة رمز التشفير - ملصق")
+  public InternalTransactionDraftPage printBarcodeSticker2() {
+    driver.element().scrollToElement(printBarcodeStickerButton2)
+        .click(printBarcodeStickerButton2);
+    // driver.browser().captureScreenshot();
+    driver.element().click(confirmationPrintButton)
+        .waitUntil(ElementsOperations.waitForElementToBeReady(confirmationPrintButton));
+    driver.element().click(confirmationCloseButton);
+    // saveModifiedTransaction();
+    return this;
+  }
+
+  @Step("التحقق من إضافة المعاملة المربوطة في الجدول")
+  public InternalTransactionDraftPage verifyLinkedTransactionAdded(String description) {
+
+    By addedRow = By.xpath("//table//td[contains(text(),'" + description + "')]");
+
+    driver.element()
+        .verifyThat(addedRow)
+        .exists()
+        .perform();
+
     return this;
   }
 

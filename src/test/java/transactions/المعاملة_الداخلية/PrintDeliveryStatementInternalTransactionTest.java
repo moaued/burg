@@ -28,7 +28,7 @@ public class PrintDeliveryStatementInternalTransactionTest extends TestBase {
     openBuragAppWithCustomCapabilities(directory);
   }
 
-  @AfterMethod
+//  @AfterMethod
 //  public void afterTest() {
 //    driver.quit();
 //  }
@@ -71,6 +71,8 @@ public class PrintDeliveryStatementInternalTransactionTest extends TestBase {
     // Send & Print Delivery Statement
     internalTransactionDraftPage
         .sendAndPrintDeliveryStatementForModifiedInTransaction();
+//        .saveModifiedTransaction4();
+//        .printDeliveryStatementForAddedInTransaction();
 
     // Switch to receiving department
     myTransactionsPage =
@@ -113,6 +115,7 @@ public class PrintDeliveryStatementInternalTransactionTest extends TestBase {
     Validations.verifyThat()
         .object(transactionNumberOnCard)
         .isEqualTo(transactionNumber);
+
   }
 
 }

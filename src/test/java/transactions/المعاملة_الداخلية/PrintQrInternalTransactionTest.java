@@ -88,10 +88,13 @@ public class PrintQrInternalTransactionTest extends TestBase {
     internalTransactionDraftPage =
         internalTransactionDraftPage.editFirstInTransaction();
 
-       internalTransactionDraftPage.saveModifiedTransaction();
+//       internalTransactionDraftPage.saveModifiedTransaction5();
+
 
     // Print Barcode Sticker
-    internalTransactionDraftPage.printBarcodeSticker();
+    internalTransactionDraftPage.printBarcodeSticker2().saveModifiedTransaction5();
+
+//    internalTransactionDraftPage.printBarcodeSticker();
 
     Validations.verifyThat()
         .file(directory, "Barcode.pdf")

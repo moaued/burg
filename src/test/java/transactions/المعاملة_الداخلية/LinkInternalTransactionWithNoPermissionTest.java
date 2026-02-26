@@ -21,10 +21,10 @@ public class LinkInternalTransactionWithNoPermissionTest extends TestBase {
     openBuragApp();
   }
 
-//    @AfterMethod
-//  public void afterTest() {
-//    driver.quit();
-//  }
+    @AfterMethod
+  public void afterTest() {
+    driver.quit();
+  }
 
 //    =============================
 
@@ -48,17 +48,12 @@ public class LinkInternalTransactionWithNoPermissionTest extends TestBase {
           .addNewInternalTransactionLink().addRelevantperson().Returntobasicdata();
 
     // 4️⃣ تفعيل خيار الربط وإدخال رقم معاملة بدون صلاحية
-//    driver.element()
-//        .click(internalTransactionDraftPage.getIsLinkedTransactionCheckBox())
-//        .type(internalTransactionDraftPage.getLinkedTransactionNumberField(),
-//            restrictedTransactionNumber);
-
-
       internalTransactionDraftPage
           .goToTransactionLinkingTab()
           .addLinkedTransaction(
               linkingData.getTestData("linking.year"),
               linkingData.getTestData("linking.transactionNumber"));
+    internalTransactionDraftPage.verifyLinkedTransactionAdded("Description: 2026-02-02 11:36:11");
 
 //      Validations.verifyThat()
 //          .object(internalTransactionDraftPage.getLinkedTransactionsCount())

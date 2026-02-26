@@ -103,6 +103,9 @@ public class OutTransactionDraftPage {
         "(//div[label[normalize-space()='%s']]/following::div[@class='radio']/label/span[@class='cr'])[1]",
         orgUnitName));
   }
+
+  private By basicInfor = By.xpath("//li[@id='basicInfor']//a[@href='#first-tab']\n");
+
   private String transactionNumber;
   @Getter
   private String transactionDescription;

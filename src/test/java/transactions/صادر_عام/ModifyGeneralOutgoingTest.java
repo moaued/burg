@@ -19,11 +19,11 @@ public class ModifyGeneralOutgoingTest extends TestBase {
         testData = new SHAFT.TestData.JSON("appData.json");
         openBuragApp();
     }
-
-    @AfterMethod
-    public void afterTest() {
-        driver.quit();
-    }
+//
+//    @AfterMethod
+//    public void afterTest() {
+//        driver.quit();
+//    }
 
     //=============================
     @Test(description = "تعديل صادر عام [3.2]")

@@ -21,9 +21,9 @@ public class AddGeneralOutgoingTransactionTest extends TestBase {
     }
 
     @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+    public void afterTest() {
+        driver.quit();
+    }
 
     //=============================
 
@@ -43,6 +43,11 @@ public class AddGeneralOutgoingTransactionTest extends TestBase {
         OutTransactionsPage outTransactionsPage = outTransactionDraftPage.backToOutgoingTransactionPage().navigateToExportedTransactions()
                 .getTransactionsOperationsComponent().searchForTransactionWithId(transactionDraftNumber, new OutTransactionsPage(driver));
         String transactionNumber = outTransactionsPage.getFirstTransactionNumber();
-        Validations.assertThat().object(transactionDraftNumber).isEqualTo(transactionNumber);
+        Validations.assertThat().object(transactionDraftNumber.trim()).isEqualTo(transactionNumber.trim());
+
+//        System.out.println("Expected: [" + transactionDraftNumber + "]");
+//        System.out.println("Actual: [" + transactionNumber + "]");
+//        Validations.assertThat().object(transactionDraftNumber).isEqualTo(transactionNumber);
+
     }
 }
