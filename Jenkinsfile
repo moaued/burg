@@ -21,7 +21,7 @@ pipeline {
          chcp 65001 > nul
          mvn clean test -q -Dfile.encoding=UTF-8
          '''
-     }}
+     }
         }
     }
 }
