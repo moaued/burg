@@ -15,10 +15,13 @@ pipeline {
 
 
         stage('Build & Test') {
-        steps {
-                bat 'chcp 65001'
-                bat 'mvn clean test'
-            }
+   steps {
+         bat '''
+         @echo off
+         chcp 65001 > nul
+         mvn clean test -q -Dfile.encoding=UTF-8
+         '''
+     }}
         }
     }
 }
