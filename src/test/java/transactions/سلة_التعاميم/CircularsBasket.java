@@ -22,10 +22,10 @@ public class CircularsBasket extends TestBase {
     openBuragApp();
   }
 
-//    @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void afterTest() {
+        driver.quit();
+    }
 
 // =========================
 // =========================

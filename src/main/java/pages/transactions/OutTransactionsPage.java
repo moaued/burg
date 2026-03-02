@@ -6,8 +6,12 @@ import components.HorizontalMenusComponent;
 import components.TransactionsNavigationPanelComponent;
 import components.TransactionsOperationsComponent;
 import io.qameta.allure.Step;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import utils.ElementsOperations;
 
 public class OutTransactionsPage extends TransactionsNavigationPanelComponent {
 
@@ -27,10 +31,45 @@ public class OutTransactionsPage extends TransactionsNavigationPanelComponent {
   private By filterButton = By.className("icon-filter");
   private By filterTransactionId = By.id("TransId");
   private By filterSearchButton = By.xpath("//input[@type='button']");
+  //=============================TransactionCopies==========================================
+  private By transactionCopiesTab = By.id("transactionCopies");
+  private By orgnaisationalUnitNumber = By.xpath(
+      "//input[@data-func='GetCopyUsersByOrgUnitId' and @onkeypress='return IsNumeric(event);']");
+  private By orgUnitAutoCompleteMenu = By.cssSelector("#divAutoComplateMenu");
+  private By firstOrgChartAutoSuggestion = By.cssSelector(
+      "#divAutoComplateMenu div:nth-of-type(1)");
+  private By copyActionReason = By.id("ddlCopyActionId");
+  private By firstAttachmentCheckBox = By.xpath(
+      "(//input[contains(@id,'mainDocumentCheckbox')])[2]");
+  private String attachmentCheckBoxAtIndex = "(//input[contains(@id,'mainDocumentCheckbox')])[%s]";
+  private String attachmentCopyTransactionDescriptionAtIndex = "(//td[@data-name='ArcivingTypeName'])[%s]";
+  @Getter
+  private List<String> attachmentCopyDescription = new ArrayList<>();
+  private By addCopyButton = By.id("btnCopy");
+  private By copyRowInGrid = By.xpath(
+      "//table[@id='grid-table-grdCopies']//tr[contains(@class,'grid-row')]");
+  //============================InternalCopies==========================
+  private By electronicCopiesTab = By.id("electronicCopies");
+  private By electronicCopiesOrgUnitName = By.xpath(
+      "//input[@data-func='GetUsersByExternalPartyId' and contains(@class,'txtDepartmentName')]");
+  private By elecCopiesOrgUnitSuggestionMenu = By.id("divAutoComplateMenu");
+  private By orgUnitFirstSuggestion = By.xpath(
+      "//div[@id='divAutoComplateMenu']/div[position()=1]");
+  private By electronicCopiesOrgUnitNumber = By.xpath(
+      "//input[@data-func='GetUsersByExternalPartyId' and contains(@class,'txtDepartmentNumber')]");
+  private By electronicCopyreason = By.id("ddlExternalCopyActionId");
+  private By electronicCopyAddButton = By.id("btnExternalCopy");
+  private By numberOfElectronicCopies = By.xpath(
+      "//table[@id='grid-table-grdExternalCopies']//tr[contains(@class,'grid-row')]");
+  //======================================================================
+  //===================================TransactionAttachments================
+
+  private By copyOrgUnitUsersInput =
+      By.id("ddlCopyOrgUnitUsers");
+
 
   @Getter
   private TransactionsOperationsComponent transactionsOperationsComponent;
-
 
   public OutTransactionsPage(SHAFT.GUI.WebDriver driver) {
     super(driver, new HorizontalMenusComponent(driver));
@@ -86,5 +125,7 @@ public class OutTransactionsPage extends TransactionsNavigationPanelComponent {
 
     return count > 0;
   }
+
+
 
 }

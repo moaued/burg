@@ -36,6 +36,12 @@ public class AddAttachmentToGeneralOutgoingTransactionTest extends TestBase {
         SHAFT.TestData.JSON attachmentsData = new SHAFT.TestData.JSON("outTransactionDraftData.json");
         LoginPage loginPage = new LoginPage(driver);
         MyTransactionsPage myTransactionsPage = loginPage.loginToTheApp();
+
+        OutTransactionDraftPage outTransactionDraft = myTransactionsPage.getTransactionsOperationsComponent().addNewGeneralTransaction();
+        outTransactionDraft.addGeneralTransaction();
+        OutTransactionsPage outTransactions = outTransactionDraft.backToOutgoingTransactionPage();
+
+
         OutTransactionsPage outTransactionsPage = myTransactionsPage.navigateToOutTransactions();
         OutTransactionDraftPage outTransactionDraftPage = outTransactionsPage.navigateToExportedTransactions().tabOnEditFirstOutTransaction();
         String transactionDraftNumber = outTransactionDraftPage.getOutTransactionNumber();

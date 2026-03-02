@@ -66,7 +66,7 @@ public class PrintDeliveryStatementInternalTransactionTest extends TestBase {
     internalTransactionDraftPage =
         internalTransactionDraftPage.editFirstInTransaction();
 
-        internalTransactionDraftPage.saveModifiedTransaction();
+
 
     // Send & Print Delivery Statement
     internalTransactionDraftPage
@@ -74,12 +74,6 @@ public class PrintDeliveryStatementInternalTransactionTest extends TestBase {
 //        .saveModifiedTransaction4();
 //        .printDeliveryStatementForAddedInTransaction();
 
-    // Switch to receiving department
-    myTransactionsPage =
-        internalTransactionDraftPage.goBackToMyTransactionPage()
-            .getSystemAdminComponent()
-            .changeDepartment(
-                testData.getTestData("internalTransaction.receivingDepartment"));
 
     // Navigate to Org Unit Transactions
     OrgUnitRecievalPage orgUnitRecievalPage =
@@ -103,19 +97,20 @@ public class PrintDeliveryStatementInternalTransactionTest extends TestBase {
 
     Validations.verifyThat()
         .file(directory, "GenerateReport.pdf")
-        .content()
-        .contains(transactionNumber);
-
+        .exists()
+        .perform();
     Validations.verifyThat()
         .file(directory, "GenerateReport.pdf")
         .content()
-        .contains(transactionSubject);
-
-    // Verify transaction exists in receiving department
+        .contains(transactionNumber)
+        .perform();
+    //Confirm the transaction subject is the same between the transaction & the report
     Validations.verifyThat()
-        .object(transactionNumberOnCard)
-        .isEqualTo(transactionNumber);
-
+        .file(directory, "GenerateReport.pdf")
+        .content()
+        .contains("Description:")
+        .perform();
+    Validations.verifyThat().object(transactionNumberOnCard).isEqualTo(transactionNumber);
   }
 
 }

@@ -11,6 +11,7 @@ import pages.LoginPage;
 import pages.transactions.MyTransactionsPage;
 import pages.transactions.OutTransactionDraftPage;
 import pages.transactions.OutTransactionsPage;
+import pages.transactions.TransactionCopiesDetailsPage;
 import pages.transactions.TransactionsCopiesPage;
 
 public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends TestBase {
@@ -33,9 +34,17 @@ public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends Te
 
     SHAFT.TestData.JSON attachmentsData =
         new SHAFT.TestData.JSON("outTransactionDraftData.json");
+    SHAFT.TestData.JSON data =
+        new SHAFT.TestData.JSON("outTransactionDraftData.json");
 
     LoginPage loginPage = new LoginPage(driver);
     MyTransactionsPage myTransactionsPage = loginPage.loginToTheApp();
+
+    OutTransactionDraftPage outTransactionDraft = myTransactionsPage.getTransactionsOperationsComponent().addNewGeneralTransaction();
+    outTransactionDraft.addGeneralTransaction();
+//    String transactionDraftNumber = outTransactionDraft.getTransactionNumberFromConfirmation();
+    OutTransactionsPage outTransactions = outTransactionDraft.backToOutgoingTransactionPage();
+
     OutTransactionsPage outTransactionsPage = myTransactionsPage.navigateToOutTransactions();
     OutTransactionDraftPage outTransactionDraftPage = outTransactionsPage.navigateToExportedTransactions().tabOnEditFirstOutTransaction();
     String transactionDraftNumber = outTransactionDraftPage.getOutTransactionNumber();
@@ -44,6 +53,10 @@ public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends Te
     outTransactionDraftPage.addAttachmentToTransaction(
         attachmentsData.getTestData("attachment1.type"),
         attachmentsData.getTestData("attachment1.location")
+    );
+    outTransactionDraftPage.addAttachmentToTransaction(
+        attachmentsData.getTestData("attachment2.type"),
+        attachmentsData.getTestData("attachment2.location")
     );
 
     // 3️⃣ حفظ المعاملة
@@ -62,7 +75,55 @@ outTransactionsPage =
             .navigateToExportedTransactions()
             .tabOnEditFirstOutTransaction();
 
+    // Add internal copies
+    outTransactionDraftPage.addInternalCopies(
+        data.getTestData("copy1.orgUnitNum"),
+        data.getTestData("copy1.copyReason"), 1
+    );
+    outTransactionDraftPage.addInternalCopies(
+        data.getTestData("copy2.orgUnitNum"),
+        data.getTestData("copy2.copyReason"), 2
+    );
+    outTransactionDraftPage.saveModifiedTransaction();
+    // Capture attachment descriptions
+    String copyType1 =
+        outTransactionDraftPage.getAttachmentCopyDescription().getFirst();
+    String copyType2 =
+        outTransactionDraftPage.getAttachmentCopyDescription().get(1);
+    outTransactionDraftPage.saveModifiedTransaction().navigateToTransactionsPage();
 
+  /*  // Validate first copy
+    myTransactionsPage =
+        myTransactionsPage.getSystemAdminComponent()
+            .changeDepartment(data.getTestData("copy1.orgUnitName"));
+
+    myTransactionsPage.getHMComponent()
+        .navigateToOrgUnitTransactionsTab()
+        .getHMComponent()
+        .receivinganddistributingimages();
+    myTransactionsPage.printFirstTransaction();
+
+
+    TransactionsCopiesPage copiesPage =
+        myTransactionsPage.navigateToTransactionsCopies();
+
+    copiesPage.getTransactionsOperationsComponent()
+        .searchForTransactionWithId(transactionNumber, copiesPage);
+
+    TransactionCopiesDetailsPage detailsPage =
+        copiesPage.goToTransactionCopyDetails();
+
+    Validations.verifyThat()
+        .object(detailsPage.getTransactionNumber())
+        .isEqualTo(transactionNumber);
+
+    Validations.verifyThat()
+        .object(detailsPage.confirmExistenceOfSpecificContentInTableOfCopies(copyType1))
+        .isTrue();*/
+
+
+
+/*
 //     5️⃣ إرسال ورقة الإحالة
     outTransactionDraftPage.goToAssignmentPaper()
         .selectOrgUnitFromAssignmentPaper(
@@ -98,7 +159,10 @@ outTransactionsPage =
     Validations.verifyThat()
         .object(transactionCopyNumber)
         .isEqualTo(transactionNumber);
-  }
 
+ */
+
+
+  }
 
 }

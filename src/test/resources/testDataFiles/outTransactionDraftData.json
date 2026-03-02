@@ -8,5 +8,20 @@
   "attachment2": {
     "type": "رسالة",
     "location": "src/main/resources/uploads/outTransactionAttachments/Attachment002.pdf"
+  },
+  "copy1": {
+    "orgUnitNum": "1",
+    "orgUnitName": "مكتب الوزير",
+    "copyReason": "للمفاهمة حضوريا"
+  },
+  "copy2": {
+    "orgUnitNum": "3",
+    "orgUnitName": "مكتب نائب الوزير",
+    "copyReason": "فحص الاجراء"
+  },
+  "copy3": {
+    "orgUnitNum": "300",
+    "orgUnitName": "وكالة البيئة",
+    "copyReason": "لإكمال اللازم معا"
   }
 }

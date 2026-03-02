@@ -29,10 +29,10 @@ public class PrintOutgoingBarcodeTest extends TestBase {
         openBuragAppWithCustomCapabilities(directory);
     }
 
-    @AfterMethod
-    public void afterTest() {
-        driver.quit();
-    }
+//    @AfterMethod
+//    public void afterTest() {
+//        driver.quit();
+//    }
 
     //=============================
     @Test(description = "طباعة باركود [3.5]")

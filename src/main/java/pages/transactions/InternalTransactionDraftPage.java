@@ -386,9 +386,9 @@ Using normalize-space() instead of text() in order to handle the white spaces va
 
   @Step("حفظ المعاملة")
   private void scrollToAndClickSaveButton(By byButtonLocator) {
-    driver.element().scrollToElement(byButtonLocator).click(byButtonLocator);
+    driver.element().scrollToElement(byButtonLocator).clickUsingJavascript(byButtonLocator);
     driver.element().verifyThat(confirmationAndSuccessModal).isVisible();
-    driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
+    driver.element().clickUsingJavascript(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
         .isVisible().perform();
   }
 
@@ -574,31 +574,35 @@ Using normalize-space() instead of text() in order to handle the white spaces va
             "  return true;" + // Prevents error propagation
             "};"
     );
-    driver.element().type(transactionSubjectTextField,
-        "Description: " + GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
-
-//    driver.element()
-//        .scrollToElement(saveModifiedTransactionButton)
-//        .waitUntil(ElementsOperations.waitForElementToBeReady(saveModifiedTransactionButton))
-//        .click(saveModifiedTransactionButton);
-
-    driver.element().scrollToElement(saveModifiedTransactionButton);
-    // Remove potential overlays via JS
-    ((JavascriptExecutor) driver.getDriver()).executeScript(
-        "document.querySelectorAll('.modal, .overlay').forEach(e => e.remove());"
-    );
-    WebElement element = driver.getDriver().findElement(saveModifiedTransactionButton);
-    ((JavascriptExecutor) driver.getDriver()).executeScript("arguments[0].click();", element);
-
-    Actions actions = new Actions(driver.getDriver());
-    if (!element.isDisplayed()) {
-      actions.moveToElement(element).pause(Duration.ofMillis(100)).click().perform();
-    }
+//    driver.element().type(transactionSubjectTextField,
+//        "Description: " + GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
+//
     driver.element()
-        .waitUntil(ExpectedConditions.invisibilityOfElementLocated(saveModifiedTransactionButton));
+        .scrollToElement(saveModifiedTransactionButton)
+        .waitUntil(ElementsOperations.waitForElementToBeReady(saveModifiedTransactionButton))
+        .click(saveModifiedTransactionButton);
+//
+//    driver.element().scrollToElement(saveModifiedTransactionButton);
+//     Remove potential overlays via JS
+//    ((JavascriptExecutor) driver.getDriver()).executeScript(
+//        "document.querySelectorAll('.modal, .overlay').forEach(e => e.remove());"
+//    );
+//    WebElement element = driver.getDriver().findElement(saveModifiedTransactionButton);
+//    ((JavascriptExecutor) driver.getDriver()).executeScript("arguments[0].click();", element);
+//
+//    Actions actions = new Actions(driver.getDriver());
+//    if (!element.isDisplayed()) {
+//      actions.moveToElement(element).pause(Duration.ofMillis(100)).click().perform();
+//    }
+//    driver.element()
+//        .waitUntil(ExpectedConditions.invisibilityOfElementLocated(saveModifiedTransactionButton));
 
-    driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
-        .isVisible().perform();
+//    driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
+//        .isVisible().perform();
+    driver.element().scrollToElement(basicInfoTab).click(basicInfoTab);
+    driver.element().type(transactionSubjectTextField,
+        "Transaction Description: " + modifiedTransactionDescription);
+    scrollToAndClickSaveButton(saveModifiedTransactionButton);
     driver.element().click(sendAndPrintDeliveryStatement)
         .waitUntil(ExpectedConditions.numberOfWindowsToBe(2))
         .waitUntil(ExpectedConditions.numberOfWindowsToBe(1));

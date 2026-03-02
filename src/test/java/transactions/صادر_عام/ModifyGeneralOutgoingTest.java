@@ -19,11 +19,11 @@ public class ModifyGeneralOutgoingTest extends TestBase {
         testData = new SHAFT.TestData.JSON("appData.json");
         openBuragApp();
     }
-//
-//    @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+
+    @AfterMethod
+    public void afterTest() {
+        driver.quit();
+    }
 
     //=============================
     @Test(description = "تعديل صادر عام [3.2]")
@@ -31,9 +31,14 @@ public class ModifyGeneralOutgoingTest extends TestBase {
     public void modifyOutgoingTransaction() {
         LoginPage loginPage = new LoginPage(driver);
         MyTransactionsPage myTransactionsPage = loginPage.loginToTheApp();
+        OutTransactionDraftPage outTransactionDraft = myTransactionsPage.getTransactionsOperationsComponent().addNewGeneralTransaction();
+        outTransactionDraft.addGeneralTransaction();
+        String transactionDraftNumber = outTransactionDraft.getTransactionNumberFromConfirmation();
+        OutTransactionsPage outTransactions = outTransactionDraft.backToOutgoingTransactionPage();
+
         OutTransactionsPage outTransactionsPage = myTransactionsPage.navigateToOutTransactions();
         OutTransactionDraftPage outTransactionDraftPage = outTransactionsPage.navigateToExportedTransactions().tabOnEditFirstOutTransaction();
-        String transactionDraftNumber = outTransactionDraftPage.getOutTransactionNumber();
+         transactionDraftNumber = outTransactionDraftPage.getOutTransactionNumber();
         outTransactionDraftPage.modifyTransactionSubject();
         String transactionDraftSubject = outTransactionDraftPage.getTransactionSubject();
         outTransactionsPage = outTransactionDraftPage.navigateToTransactionsPage().navigateToExportedTransactions().searchForTransactionWithId(transactionDraftNumber);

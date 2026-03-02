@@ -4,6 +4,7 @@ import base.TestBase;
 import com.shaft.driver.SHAFT;
 import com.shaft.validation.Validations;
 import io.qameta.allure.Description;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -20,10 +21,10 @@ public class ImagesBasketInternalCopies extends TestBase {
     openBuragApp();
   }
 
-//    @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void afterTest() {
+        driver.quit();
+    }
 
 // =========================
 // =========================

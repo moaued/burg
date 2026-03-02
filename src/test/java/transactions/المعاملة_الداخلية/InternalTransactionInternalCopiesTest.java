@@ -117,8 +117,6 @@ public class InternalTransactionInternalCopiesTest extends TestBase {
     myTransactionsPage.printFirstTransaction();
 
 
-
-
     TransactionsCopiesPage copiesPage =
         myTransactionsPage.navigateToTransactionsCopies();
 

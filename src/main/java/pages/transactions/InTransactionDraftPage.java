@@ -298,7 +298,7 @@ Using normalize-space() instead of text() in order to handle the white spaces va
         transactionAttachmentLocation);
     driver.element().waitUntilNumberOfElementsToBeMoreThan(transactionLettersThumbnail, 0);
     driver.element().switchToDefaultContent();
-    scrollToAndClickSaveButton(saveButton2);
+//    scrollToAndClickSaveButton(saveButton2);
     return this;
   }
   @Step("اضافة ملف على أصل خطاب المعاملة2")
@@ -314,7 +314,7 @@ Using normalize-space() instead of text() in order to handle the white spaces va
         transactionAttachmentLocation);
     driver.element().waitUntilNumberOfElementsToBeMoreThan(transactionLettersThumbnail, 0);
     driver.element().switchToDefaultContent();
-    scrollToAndClickSaveButton(saveButton2);
+//    scrollToAndClickSaveButton(saveButton2);
     return this;
   }
   @Step("عدد الملحقات")

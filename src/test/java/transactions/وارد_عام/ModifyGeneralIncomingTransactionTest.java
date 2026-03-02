@@ -18,11 +18,11 @@ public class ModifyGeneralIncomingTransactionTest extends TestBase {
         testData = new SHAFT.TestData.JSON("appData.json");
         openBuragApp();
     }
-
-    @AfterMethod
-    public void afterTest() {
-        driver.quit();
-    }
+//
+//    @AfterMethod
+//    public void afterTest() {
+//        driver.quit();
+//    }
 
 //    =============================
 //    @Test(description = "[1.3] تعديل وارد جهات")

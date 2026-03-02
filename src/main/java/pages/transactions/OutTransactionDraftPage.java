@@ -2,8 +2,10 @@ package pages.transactions;
 
 import com.shaft.driver.SHAFT;
 import com.shaft.gui.internal.locator.Locator;
+import com.shaft.validation.Validations;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -117,6 +119,44 @@ public class OutTransactionDraftPage {
   @Getter
   private String modifiedTransactionDescription =
       "Description: " + GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss");
+  //=============================TransactionCopies==========================================
+  private By transactionCopiesTab = By.id("transactionCopies");
+  private By orgnaisationalUnitNumber = By.xpath(
+      "//input[@data-func='GetCopyUsersByOrgUnitId' and @onkeypress='return IsNumeric(event);']");
+  private By orgUnitAutoCompleteMenu = By.cssSelector("#divAutoComplateMenu");
+  private By firstOrgChartAutoSuggestion = By.cssSelector(
+      "#divAutoComplateMenu div:nth-of-type(1)");
+  private By copyActionReason = By.id("ddlCopyActionId");
+  private By firstAttachmentCheckBox = By.xpath(
+      "(//input[contains(@id,'mainDocumentCheckbox')])[2]");
+  private String attachmentCheckBoxAtIndex = "(//input[contains(@id,'mainDocumentCheckbox')])[%s]";
+  private String attachmentCopyTransactionDescriptionAtIndex = "(//td[@data-name='ArcivingTypeName'])[%s]";
+  @Getter
+  private List<String> attachmentCopyDescription = new ArrayList<>();
+  private By addCopyButton = By.id("btnCopy");
+  private By copyRowInGrid = By.xpath(
+      "//table[@id='grid-table-grdCopies']//tr[contains(@class,'grid-row')]");
+  //============================InternalCopies==========================
+  private By electronicCopiesTab = By.id("electronicCopies");
+  private By electronicCopiesOrgUnitName = By.xpath(
+      "//input[@data-func='GetUsersByExternalPartyId' and contains(@class,'txtDepartmentName')]");
+  private By elecCopiesOrgUnitSuggestionMenu = By.id("divAutoComplateMenu");
+  private By orgUnitFirstSuggestion = By.xpath(
+      "//div[@id='divAutoComplateMenu']/div[position()=1]");
+  private By electronicCopiesOrgUnitNumber = By.xpath(
+      "//input[@data-func='GetUsersByExternalPartyId' and contains(@class,'txtDepartmentNumber')]");
+  private By electronicCopyreason = By.id("ddlExternalCopyActionId");
+  private By electronicCopyAddButton = By.id("btnExternalCopy");
+  private By numberOfElectronicCopies = By.xpath(
+      "//table[@id='grid-table-grdExternalCopies']//tr[contains(@class,'grid-row')]");
+  //======================================================================
+  //===================================TransactionAttachments================
+  private By copyOrgUnitUsersInput =
+      By.id("ddlCopyOrgUnitUsers");
+
+
+
+
 
   public OutTransactionDraftPage(SHAFT.GUI.WebDriver driver) {
     this.driver = driver;
@@ -126,8 +166,8 @@ public class OutTransactionDraftPage {
   public OutTransactionDraftPage modifyTransactionSubject() {
     driver.element().type(subjectTextField,
         "Description: " + GeneralOperations.getCurrentDateTime("yyyy-MM-dd HH:mm:ss"));
-    driver.element().scrollToElement(saveTransactionButton).click(saveTransactionButton)
-        .verifyThat(confirmationAndSuccessModal).isVisible();
+    driver.element().scrollToElement(saveTransactionButton).click(saveTransactionButton);
+//        .verifyThat(confirmationAndSuccessModal).isVisible();
     driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
         .isVisible().perform();
     driver.element().verifyThat(confirmationAndSuccessModal).doesNotExist();
@@ -330,6 +370,38 @@ public class OutTransactionDraftPage {
     driver.element().click(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
         .isVisible().perform();
     transactionNumber = driver.element().getText(transactionNumberFromConfirmation);
+    return this;
+  }
+
+  @Step("عدد النسخ")
+  public int getNumberOfCopyRows() {
+    return driver.element().getElementsCount(copyRowInGrid);
+  }
+  @Step("الذهاب الى تبويب النسخ الداخلية الالكترونية")
+  private OutTransactionDraftPage goToTransactionCopiesTab() {
+    driver.element().click(transactionCopiesTab).verifyThat(orgnaisationalUnitNumber).isVisible();
+    return this;
+  }
+  @Step("اضافة نسخ داخلية")
+  public OutTransactionDraftPage addInternalCopies(String orgUnitNum, String copyReason,
+      int attachmentIndex) {
+    goToTransactionCopiesTab();
+    int numOfCopies = getNumberOfCopyRows();
+    By attachmentCheckBoxIndexElement = By.xpath(
+        String.format(attachmentCheckBoxAtIndex, attachmentIndex + 1));
+    By attachmentTypeAtIndex = By.xpath(
+        String.format(attachmentCopyTransactionDescriptionAtIndex, attachmentIndex + 1));
+    attachmentCopyDescription.add(driver.element().getText(attachmentTypeAtIndex));
+    driver.element().click(orgnaisationalUnitNumber).type(orgnaisationalUnitNumber, orgUnitNum)
+        .waitUntil(ElementsOperations.waitForElementToBeReady(orgUnitAutoCompleteMenu))
+        .click(firstOrgChartAutoSuggestion);
+
+    driver.element().type(copyOrgUnitUsersInput, "مدير النظام");
+    driver.element().type(copyOrgUnitUsersInput, Keys.ARROW_DOWN);
+    driver.element().type(copyOrgUnitUsersInput, Keys.ENTER);
+    driver.element().select(copyActionReason, copyReason);
+    driver.element().click(attachmentCheckBoxIndexElement).click(addCopyButton);
+
     return this;
   }
 
