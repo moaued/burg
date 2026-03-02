@@ -14,14 +14,14 @@ pipeline {
         }
 
 
-        stage('Build & Test') {
-   steps {
-         bat '''
-         @echo off
-         chcp 65001 > nul
-         mvn clean test -q -Dfile.encoding=UTF-8
-         '''
-     }
-        }
+       stage('Build & Test') {
+           steps {
+               bat '''
+               @echo off
+               chcp 65001 > nul
+               mvn clean test -DsuiteXmlFile=AllTests.xml -Dfile.encoding=UTF-8 -q
+               '''
+           }
+       }
     }
 }
