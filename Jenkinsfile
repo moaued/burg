@@ -7,26 +7,27 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
+        stage('Build & Test') {
+            steps {
+                bat '''
+                @echo off
+                chcp 65001 > nul
+                set MAVEN_OPTS=-Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
+                mvn clean test -q
+                '''
+            }
+        }
 
-       stage('Build & Test') {
-           steps {
-               bat '''
-               @echo off
-               chcp 65001 > nul
-               set MAVEN_OPTS=-Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
-               mvn clean test -q
-               '''
-           }
-       }
+    }
 
-
-   post {
+    post {
         always {
             script {
                 def allureHome = tool 'Allure'
@@ -38,5 +39,6 @@ pipeline {
 
             archiveArtifacts artifacts: 'target/allure-report/**'
         }
+    }
 
-   } }
+}
