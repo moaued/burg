@@ -19,7 +19,7 @@ pipeline {
                bat '''
                @echo off
                chcp 65001 > nul
-               mvn clean test -DsuiteXmlFile=AllTests.xml -Dfile.encoding=UTF-8 -q
+               mvn clean test  -Dfile.encoding=UTF-8 -q
                '''
            }
        }

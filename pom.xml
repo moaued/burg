@@ -74,7 +74,12 @@
                             </dependency>
                         </dependencies>
                         <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>AllTests.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+
                             <systemPropertyVariables>
+
                                 <testng.dtd.http>true</testng.dtd.http>
                             </systemPropertyVariables>
                             <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
