@@ -19,9 +19,21 @@ pipeline {
                bat '''
                @echo off
                chcp 65001 > nul
-               mvn clean test  -Dfile.encoding=UTF-8 -q
+               set MAVEN_OPTS=-Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8
+               mvn clean test -q
                '''
            }
        }
+
     }
+
+    post {
+            always {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'target/allure-results']]
+                ])
+            }
+        }
 }
