@@ -26,10 +26,12 @@ pipeline {
        }
 
     }
-
-    post {
-            always {
-                      allure results: [[path: 'target/allure-results']]
-                  }
-        }
+post {
+    always {
+        bat '''
+        allure generate target\\allure-results --clean -o target\\allure-report
+        '''
+        archiveArtifacts artifacts: 'target/allure-report/**'
+    }
+}
 }
