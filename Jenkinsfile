@@ -26,11 +26,16 @@ pipeline {
        }
 
     }
-post {
+st {
     always {
-        bat '''
-        allure generate target\\allure-results --clean -o target\\allure-report
-        '''
+        script {
+            def allureHome = tool 'Allure'
+
+            bat """
+            "${allureHome}\\bin\\allure.bat" generate target\\allure-results --clean -o target\\allure-report
+            """
+        }
+
         archiveArtifacts artifacts: 'target/allure-report/**'
     }
 }
