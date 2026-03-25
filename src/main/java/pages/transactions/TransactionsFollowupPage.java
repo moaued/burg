@@ -40,6 +40,7 @@ public class TransactionsFollowupPage extends TransactionsNavigationPanelCompone
 
   //========================================================
   private final By sentFollowupRequestsTab = By.id("SentFollowUpTab");
+  private By replyFollowUpTab = By.xpath("//li[@id='ReplyFollowUpTab']");
 
   //=============================TransactionFollowupRecord===================
   private final By followUpRecordsForm = By.xpath("//h2[contains(@class,'main-title')]");
@@ -164,6 +165,13 @@ public class TransactionsFollowupPage extends TransactionsNavigationPanelCompone
         .waitUntil(ElementsOperations.waitForElementToBeReady(
             acceptEndTransactionFollowupPopup))
             .click(acceptEndTransactionFollowupPopup);
+    return this;
+  }
+
+  @Step("الذهاب الى تبويب المتابعات المعادة")
+  public TransactionsFollowupPage navigateToReturnedFollowUpsTab() {
+    driver.element().click(replyFollowUpTab);
+    driver.browser().refreshCurrentPage();
     return this;
   }
 

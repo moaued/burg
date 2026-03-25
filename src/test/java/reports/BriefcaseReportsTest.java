@@ -24,10 +24,10 @@ public class BriefcaseReportsTest extends TestBase {
     openBuragApp();
   }
 
-//  @AfterMethod(alwaysRun = true)
-//  public void afterTest() {
-//    driver.quit();
-//  }
+  @AfterMethod(alwaysRun = true)
+  public void afterTest() {
+    driver.quit();
+  }
 
   //=============================
   @Test(description = "[7.1.6] تقرير حقيبة العرض", groups = {"Smoke"})

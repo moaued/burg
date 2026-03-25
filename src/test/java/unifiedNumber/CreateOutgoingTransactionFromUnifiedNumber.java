@@ -4,6 +4,7 @@ import base.TestBase;
 import com.shaft.driver.SHAFT;
 import com.shaft.validation.Validations;
 import io.qameta.allure.Description;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -22,10 +23,10 @@ public class CreateOutgoingTransactionFromUnifiedNumber extends TestBase {
     openBuragApp();
   }
 
-//  @AfterMethod
-//  public void afterTest() {
-//    driver.quit();
-//  }
+  @AfterMethod
+  public void afterTest() {
+    driver.quit();
+  }
   // =============================
 
   @Test(description = "إنشاء صادر مرتبط بصادر خارجي من شاشة الرقم الموحد[9.3.1] ")

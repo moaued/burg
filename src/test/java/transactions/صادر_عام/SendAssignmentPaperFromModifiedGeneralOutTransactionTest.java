@@ -4,6 +4,7 @@ import base.TestBase;
 import com.shaft.driver.SHAFT;
 import com.shaft.validation.Validations;
 import io.qameta.allure.Description;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,8 +29,8 @@ public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends Te
 //    }
 
   //=============================
-  @Test(description = "[3.4] ارسال ورقة الاحالة من خلال تعديل معاملة صادر عام")
-  @Description("اضافة نسخ داخلية وخارجية، وتحديد مرفقات مختلفة للنسخ والتحقق من وصولها بحسب ما تم تحديده [3.4]")
+  @Test(description = " ارسال ورقة الاحالة من خلال تعديل معاملة صادر عام[3.4.1]")
+  @Description("اضافة نسخ داخلية، وتحديد مرفقات مختلفة للنسخ والتحقق من وصولها بحسب ما تم تحديده [3.4.1]")
   public void sendAssignmentPaperOutgoingTransaction() {
 
     SHAFT.TestData.JSON attachmentsData =
@@ -42,12 +43,11 @@ public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends Te
 
     OutTransactionDraftPage outTransactionDraft = myTransactionsPage.getTransactionsOperationsComponent().addNewGeneralTransaction();
     outTransactionDraft.addGeneralTransaction();
-//    String transactionDraftNumber = outTransactionDraft.getTransactionNumberFromConfirmation();
+    String transactionNumber = outTransactionDraft.getTransactionNumberFromConfirmation();
     OutTransactionsPage outTransactions = outTransactionDraft.backToOutgoingTransactionPage();
 
     OutTransactionsPage outTransactionsPage = myTransactionsPage.navigateToOutTransactions();
     OutTransactionDraftPage outTransactionDraftPage = outTransactionsPage.navigateToExportedTransactions().tabOnEditFirstOutTransaction();
-    String transactionDraftNumber = outTransactionDraftPage.getOutTransactionNumber();
     int numberOfAttachmentsBefore = outTransactionDraftPage.getNumberOfAttachmentsInGrid();
     // 2️⃣ إضافة مرفق
     outTransactionDraftPage.addAttachmentToTransaction(
@@ -61,8 +61,6 @@ public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends Te
 
     // 3️⃣ حفظ المعاملة
     outTransactionDraftPage.saveModifiedTransaction();
-    String transactionNumber =
-        outTransactionDraftPage.getTransactionNumberFromConfirmation();
 
     // 4️⃣ البحث عن المعاملة وتعديلها
     outTransactionDraftPage.navigateToTransactionsPage();
@@ -70,7 +68,6 @@ public class SendAssignmentPaperFromModifiedGeneralOutTransactionTest extends Te
 outTransactionsPage =
         myTransactionsPage.navigateToOutTransactions();
 
-//    OutTransactionDraftPage outTransactionDraftPage =
         outTransactionsPage
             .navigateToExportedTransactions()
             .tabOnEditFirstOutTransaction();
@@ -92,7 +89,7 @@ outTransactionsPage =
         outTransactionDraftPage.getAttachmentCopyDescription().get(1);
     outTransactionDraftPage.saveModifiedTransaction().navigateToTransactionsPage();
 
-  /*  // Validate first copy
+    // Validate first copy
     myTransactionsPage =
         myTransactionsPage.getSystemAdminComponent()
             .changeDepartment(data.getTestData("copy1.orgUnitName"));
@@ -104,22 +101,19 @@ outTransactionsPage =
     myTransactionsPage.printFirstTransaction();
 
 
-    TransactionsCopiesPage copiesPage =
-        myTransactionsPage.navigateToTransactionsCopies();
+    TransactionsCopiesPage transactionsCopiesPage = myTransactionsPage.navigateToTransactionsCopies();
+    String transactionCopyNumber = transactionsCopiesPage.getTransactionsOperationsComponent()
+        .searchForTransactionWithId(transactionNumber, new TransactionsCopiesPage(driver)).getFirstTransactionNumber();
 
-    copiesPage.getTransactionsOperationsComponent()
-        .searchForTransactionWithId(transactionNumber, copiesPage);
+    Validations.verifyThat().object(transactionCopyNumber).isEqualTo(transactionNumber);
 
-    TransactionCopiesDetailsPage detailsPage =
-        copiesPage.goToTransactionCopyDetails();
-
-    Validations.verifyThat()
-        .object(detailsPage.getTransactionNumber())
-        .isEqualTo(transactionNumber);
-
-    Validations.verifyThat()
-        .object(detailsPage.confirmExistenceOfSpecificContentInTableOfCopies(copyType1))
-        .isTrue();*/
+    TransactionCopiesDetailsPage transactionCopiesDetailsPage = transactionsCopiesPage.goToTransactionCopyDetails();
+    String transactionNumberFromCopy1 = transactionCopiesDetailsPage.getTransactionNumber();
+    boolean isAttachmentTypePresent1 = transactionCopiesDetailsPage
+        .confirmExistenceOfSpecificContentInTableOfCopies(copyType1);
+//
+    Validations.verifyThat().object(transactionNumberFromCopy1).isEqualTo(transactionNumber);
+//    Validations.verifyThat().object(isAttachmentTypePresent1).isTrue();
 
 
 
@@ -162,6 +156,71 @@ outTransactionsPage =
 
  */
 
+
+  }
+
+
+  @Test(description = " ارسال ورقة الاحالة من خلال تعديل معاملة صادر عام[3.4.2]")
+  @Description("اضافة نسخ خارجية، وتحديد مرفقات مختلفة للنسخ والتحقق من وصولها بحسب ما تم تحديده [3.4.2]")
+  public void sendAssignmentPaperOutgoingTransaction2() {
+
+    SHAFT.TestData.JSON attachmentsData =
+        new SHAFT.TestData.JSON("outTransactionDraftData.json");
+    SHAFT.TestData.JSON data =
+        new SHAFT.TestData.JSON("outTransactionDraftData.json");
+
+    LoginPage loginPage = new LoginPage(driver);
+    MyTransactionsPage myTransactionsPage = loginPage.loginToTheApp();
+
+    OutTransactionDraftPage outTransactionDraft = myTransactionsPage.getTransactionsOperationsComponent().addNewGeneralTransaction();
+    outTransactionDraft.addGeneralTransaction();
+    String transactionNumber = outTransactionDraft.getTransactionNumberFromConfirmation();
+    OutTransactionsPage outTransactions = outTransactionDraft.backToOutgoingTransactionPage();
+
+    OutTransactionsPage outTransactionsPage = myTransactionsPage.navigateToOutTransactions();
+    OutTransactionDraftPage outTransactionDraftPage = outTransactionsPage.navigateToExportedTransactions().tabOnEditFirstOutTransaction();
+    int numberOfAttachmentsBefore = outTransactionDraftPage.getNumberOfAttachmentsInGrid();
+   /* // 2️⃣ إضافة مرفق
+    outTransactionDraftPage.addAttachmentToTransaction(
+        attachmentsData.getTestData("attachment1.type"),
+        attachmentsData.getTestData("attachment1.location")
+    );
+    outTransactionDraftPage.addAttachmentToTransaction(
+        attachmentsData.getTestData("attachment2.type"),
+        attachmentsData.getTestData("attachment2.location")
+    );
+
+    // 3️⃣ حفظ المعاملة
+    outTransactionDraftPage.saveModifiedTransaction();
+
+    // 4️⃣ البحث عن المعاملة وتعديلها
+    outTransactionDraftPage.navigateToTransactionsPage();
+
+    outTransactionsPage =
+        myTransactionsPage.navigateToOutTransactions();
+
+    outTransactionsPage
+        .navigateToExportedTransactions()
+        .tabOnEditFirstOutTransaction();
+*/
+    // Add internal copies
+/*    outTransactionDraftPage.addExternalCopies(
+        data.getTestData("copy1.orgUnitNum"),
+        data.getTestData("copy1.copyReason"), 1
+    );*/
+    outTransactionDraftPage.addElectronicCopies(
+        attachmentsData.getTestData("externalCopy1.orgUnitName"),
+        attachmentsData.getTestData("externalCopy1.orgUnitNumber"),
+        attachmentsData.getTestData("externalCopy1.copyReason"));
+
+
+    outTransactionDraftPage.saveModifiedTransaction();
+    // Capture attachment descriptions
+    String copyType1 =
+        outTransactionDraftPage.getAttachmentCopyDescription().getFirst();
+    String copyType2 =
+        outTransactionDraftPage.getAttachmentCopyDescription().get(1);
+    outTransactionDraftPage.saveModifiedTransaction().navigateToTransactionsPage();
 
   }
 

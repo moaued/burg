@@ -60,8 +60,18 @@ public class MyTransactionsPage extends TransactionsNavigationPanelComponent{
   private By sentTransactionsTab = By.xpath("//li[@class='nav-item']//span[normalize-space()='المعاملات المرسلة']/ancestor::a");
   private By myTransactionsMenu = By.id("MyTransactions");
 //      By.xpath("//span[normalize-space()='معاملاتي']/ancestor::a");
+  private By rejectButton =
+      Locator.hasTagName("a")
+          .containsAttribute("title", "رفض")
+          .containsAttribute("onclick", "showRejectionPopup")
+          .isFirst()
+          .build();
 
+  private By rejectReasonInput =
+      By.cssSelector("#rejectionReason.form-control");
 
+  private By confirmRejectButton =
+      By.xpath("//button[contains(.,'إرجاع')]");
 
 
 
@@ -235,5 +245,18 @@ public class MyTransactionsPage extends TransactionsNavigationPanelComponent{
     return new InternalTransactionDraftPage(driver);
   }
 
+  @Step("رفض المعاملة من معاملات الإدارة")
+  public void rejectFirstTransaction(String rejectReason) {
+    // الضغط على زر الرفض أسفل بطاقة المعاملة
+    driver.element()
+//        .scrollToElement(rejectButton)
+        .click(rejectButton);
+    // إدخال سبب الرفض
+    driver.element()
+        .type(rejectReasonInput, rejectReason);
+    // تأكيد الرفض
+    driver.element()
+        .click(confirmRejectButton);
+  }
 
 }

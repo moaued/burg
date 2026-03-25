@@ -30,7 +30,7 @@ public class AddInternalTransactionTest extends TestBase {
 
 //    =============================
 
-  @Test(description = " إضافة معاملة داخلية[2.1]")
+  @Test(description ="إضافة معاملة داخلية[2.1]" , groups = {"Daily"})
   @Description("انشاء معاملة داخلية مع اضافة 3 مرفقات بصلاحيات مختلفة مع إضافة ملف على اصل خطاب المعاملة، واضافة بيانات صاحب علاقة وتحديد خيار ارسال رسالة نصية والتحقق من وصول الرسالة[2.1]")
   public void addInternalTransaction() {
 

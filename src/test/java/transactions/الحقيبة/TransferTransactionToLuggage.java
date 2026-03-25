@@ -6,6 +6,7 @@ import base.TestBase;
 import com.shaft.driver.SHAFT;
 import io.qameta.allure.Description;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -27,11 +28,11 @@ public class TransferTransactionToLuggage extends TestBase {
     openBuragAppWithCustomCapabilities(directory);
   }
 
-  //
-//    @AfterMethod
-//    public void afterTest() {
-//        driver.quit();
-//    }
+
+    @AfterMethod
+    public void afterTest() {
+        driver.quit();
+    }
 
   //=============================
   @Test(description = "نقل اصل معاملة إلى الحقيبة [5.1]")

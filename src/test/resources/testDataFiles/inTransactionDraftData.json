@@ -64,7 +64,8 @@
     "orgUnitName": "مكتب نائب الوزير",
     "actionType": "اختبارالاجراء",
     "deliveryMethod": "الكتروني",
-    "followUpUnit": "شعبة نظام براق"
+    "followUpUnit": "شعبة نظام براق",
+    "rejectReason": "رفض المعاملة للاختبار"
   },
   "assignmentPaper": {
     "orgUnitName": "مكتب نائب الوزير"
