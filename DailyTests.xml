@@ -2,7 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Daily Tasks Test Suite" verbose="2">
-  <test name="incomingTransactions">
+
+  <test name="incomingTransactions, internalTransactions, outgoingTransactions, Luggage">
     <groups>
       <run>
         <include name="Daily"/>
@@ -14,43 +15,18 @@
       <class name="transactions.وارد_عام.PrintPaperReferralTest"/>
       <class name="transactions.وارد_عام.TransactionFollowupRequestTest"/>
       <class name="transactions.وارد_عام.ReturnFollowUpIncomingTransactionTest"/>
-    </classes>
-  </test>
 
-  <test name="internalTransactions">
-    <groups>
-      <run>
-        <include name="Daily"/>
-      </run>
-    </groups>
-    <classes>
       <class name="transactions.المعاملة_الداخلية.AddInternalTransactionTest"/>
       <class name="transactions.المعاملة_الداخلية.AddAttachmentToInternalTransactionTest"/>
       <class name="transactions.المعاملة_الداخلية.PrintPaperReferralInternalTransactionTest"/>
       <class name="transactions.المعاملة_الداخلية.InternalTransactionFollowupRequestTest"/>
       <class name="transactions.المعاملة_الداخلية.ReturnFollowUpInternalTransactionTest"/>
-    </classes>
-  </test>
 
-  <test name="outgoingTransactions">
-    <groups>
-      <run>
-        <include name="Daily"/>
-      </run>
-    </groups>
-    <classes>
       <class name="transactions.صادر_عام.AddGeneralOutgoingTransactionTest"/>
-    </classes>
-  </test>
 
-  <test name="Luggage">
-    <groups>
-      <run>
-        <include name="Daily"/>
-      </run>
-    </groups>
-    <classes>
       <class name="transactions.الحقيبة.TransferTransactionToLuggage"/>
+
+
     </classes>
   </test>
 

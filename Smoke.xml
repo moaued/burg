@@ -10,9 +10,9 @@
         </groups>
         <classes>
 <!--            <class name="reports.BriefcaseReportsTest"/>-->
-            <class name="reports.TransactionFollowUpReportsTest"/>
-            <class name="reports.TransactionGeneralReportsTest"/>
-<!--            <class name="reports.TransactionReportsTest"/>-->
+<!--            <class name="reports.TransactionFollowUpReportsTest"/>-->
+<!--            <class name="reports.TransactionGeneralReportsTest"/>-->
+            <class name="reports.TransactionReportsTest"/>
         </classes>
     </test>
 </suite>

@@ -17,13 +17,13 @@ import io.qameta.allure.Description;
 public class AddInternalTransactionTest extends TestBase {
 
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void beforeTest() {
     testData = new SHAFT.TestData.JSON("appData.json");
     openBuragApp();
   }
 
-  @AfterMethod
+  @AfterMethod(alwaysRun = true)
   public void afterTest() {
     driver.quit();
   }

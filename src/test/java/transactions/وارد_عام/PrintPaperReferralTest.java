@@ -20,7 +20,7 @@ public class PrintPaperReferralTest extends TestBase {
 
     String directory;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void beforeTest() {
         testData = new SHAFT.TestData.JSON("appData.json");
         GeneralOperations.createNewFolderWithDateTimeName("paperReferralDownloadFolderPath");
@@ -28,13 +28,13 @@ public class PrintPaperReferralTest extends TestBase {
         openBuragAppWithCustomCapabilities(directory);
     }
 
-//    @AfterMethod
+//    @AfterMethod(alwaysRun = true)
 //    public void afterTest() {
 //        driver.quit();
 //    }
 
    //=============================
-    @Test(description = "طباعة الإحالة الورقية [1.8]")
+    @Test(description ="طباعة الإحالة الورقية [1.8]" ,groups = {"Daily"})
     @Description("التحقق من إمكانية طباعة الإحالة الورقية من التعديل على المعاملة واختيار ايقونة الإحالة الورقية  [1.8]")
     public void addAttachmentToTransaction() {
         SHAFT.TestData.JSON attachmentsData = new SHAFT.TestData.JSON("inTransactionDraftData.json");

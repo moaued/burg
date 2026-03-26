@@ -14,20 +14,20 @@ import pages.transactions.*;
 
 public class InternalTransactionFollowupRequestTest extends TestBase {
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void beforeTest() {
     testData = new SHAFT.TestData.JSON("appData.json");
     openBuragApp();
   }
 
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void afterTest() {
         driver.quit();
     }
 
   //======================
-  @Test(description = "إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة[2.4.1] ")
+  @Test(description = "إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة[2.4.1] ",groups = {"Daily"})
   @Description("إضافة طلب متابعة إلى معاملة داخلية من خلال تعديل المعاملة[2.4.1] ")
   public void addFollowupRequestToInternalTransaction() {
 
@@ -105,7 +105,7 @@ public class InternalTransactionFollowupRequestTest extends TestBase {
         .isEqualTo(numberOfAttachmentsOnCard);
   }
 
-  @Test(description = "اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة[2.4.2] ")
+  @Test(description = "اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة[2.4.2] ",groups = {"Daily"})
   @Description("اضافة طلب متابعة الى معاملة داخلية من ايقونة الاحالة المباشرة[2.4.2] ")
   public void addFollowupRequestFromInternalTransactionCard() {
 

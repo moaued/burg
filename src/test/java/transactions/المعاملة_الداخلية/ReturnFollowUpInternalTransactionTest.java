@@ -15,21 +15,21 @@ import pages.transactions.TransactionsFollowupPage;
 public class ReturnFollowUpInternalTransactionTest extends TestBase {
 
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void beforeTest() {
     testData = new SHAFT.TestData.JSON("appData.json");
     openBuragApp();
   }
 
 
-//  @AfterMethod
+//  @AfterMethod(alwaysRun = true)
 //  public void afterTest() {
 //    driver.quit();
 //  }
 
   //======================
 
-  @Test(description = "التحقق من إعادة المعاملة الداخلية من الإدارة المطلوب المتابعة عليها إلى الإدارة الطالبة للمتابعة[2.12]")
+  @Test(description = "التحقق من إعادة المعاملة الداخلية من الإدارة المطلوب المتابعة عليها إلى الإدارة الطالبة للمتابعة[2.12]",groups = {"Daily"})
   @Description("إعادة المعاملة من الإدارة المطلوب المتابعة عليها الى الادارة الطالبة للمتابعة مع التحقق من ظهور بطاقة المعاملة في تبويبة المتابعات المعادة في سلة المتابعة[2.12]")
   public void verifyReturnFollowUpForInternalTransaction() {
 

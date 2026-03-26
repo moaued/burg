@@ -14,13 +14,13 @@ import pages.transactions.MyTransactionsPage;
 @Slf4j
 public class AddGeneralOutgoingTransactionTest extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void beforeTest() {
         testData = new SHAFT.TestData.JSON("appData.json");
         openBuragApp();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void afterTest() {
         driver.quit();
     }
@@ -32,7 +32,7 @@ public class AddGeneralOutgoingTransactionTest extends TestBase {
      As far as I understand, we can check by the transactionId if the SMS is sent or not
      (this is all what we need here, we won't test the SMS sending itself)
      */
-    @Test(description = "انشاء صادر عام [3.1]")
+    @Test(description ="انشاء صادر عام [3.1]" ,groups = {"Daily"})
     @Description("انشاء صادر عام، واضافة بيانات صاحب علاقة وتحديد خيار ارسال رسالة نصية والتحقق من وصول الرسالة [3.1]")
     public void addOutgoingTransaction() {
         LoginPage loginPage = new LoginPage(driver);

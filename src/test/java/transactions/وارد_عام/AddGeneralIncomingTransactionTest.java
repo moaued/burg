@@ -12,19 +12,19 @@ import pages.LoginPage;
 import pages.transactions.MyTransactionsPage;
 
 public class AddGeneralIncomingTransactionTest extends TestBase {
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void beforeTest() {
         testData = new SHAFT.TestData.JSON("appData.json");
         openBuragApp();
     }
 
-//    @AfterMethod
+//    @AfterMethod(alwaysRun = true)
 //    public void afterTest() {
 //        driver.quit();
 //    }
 
 ////    =============================
-    @Test(description = "[1.1] اضافة وارد جهات")
+    @Test(description ="[1.1] اضافة وارد جهات" ,groups = {"Daily"})
     @Description("[1.1] انشاء وارد عام من نوع جهات مع اضافة 3 مرفقات بصلاحيات مختلفة مع إضافة ملف على اصل خطاب المعاملة، واضافة بيانات صاحب علاقة وتحديد خيار ارسال رسالة نصية والتحقق من وصول الرسالة عند حفظ المعاملة")
     public void addIncomingTransaction() {
         SHAFT.TestData.JSON attachmentsData = new SHAFT.TestData.JSON("inTransactionDraftData.json");
@@ -68,7 +68,7 @@ public class AddGeneralIncomingTransactionTest extends TestBase {
     }
 
 //    =============================
-    @Test(description = "[1.2] اضافة وارد أفراد")
+    @Test(description = "[1.2] اضافة وارد أفراد",groups = {"Daily"})
     @Description("[1.2] انشاء وارد عام من نوع أفراد مع اضافة 3 مرفقات بصلاحيات مختلفة مع إضافة ملف على اصل خطاب المعاملة، واضافة بيانات صاحب علاقة وتحديد خيار ارسال رسالة نصية والتحقق من وصول الرسالة عند حفظ المعاملة")
     public void addIndividualIncomingTransaction() {
         SHAFT.TestData.JSON attachmentsData = new SHAFT.TestData.JSON("inTransactionDraftData.json");

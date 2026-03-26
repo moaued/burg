@@ -20,7 +20,7 @@ public class TransferTransactionToLuggage extends TestBase {
 
   String directory;
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void beforeTest() {
     testData = new SHAFT.TestData.JSON("appData.json");
     GeneralOperations.createNewFolderWithDateTimeName("assignmentPaperDownloadFolderPath");
@@ -29,13 +29,13 @@ public class TransferTransactionToLuggage extends TestBase {
   }
 
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void afterTest() {
         driver.quit();
     }
 
   //=============================
-  @Test(description = "نقل اصل معاملة إلى الحقيبة [5.1]")
+  @Test(description = "نقل اصل معاملة إلى الحقيبة [5.1]" ,groups = {"Daily"})
   @Description("نقل اصل معاملة إلى الحقيبة [5.1]")
   public void TransferTransactionToLuggage() {
 

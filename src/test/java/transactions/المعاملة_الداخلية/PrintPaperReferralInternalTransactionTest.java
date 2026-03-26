@@ -19,7 +19,7 @@ public class PrintPaperReferralInternalTransactionTest extends TestBase {
 
   String directory;
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void beforeTest() {
     testData = new SHAFT.TestData.JSON("appData.json");
     GeneralOperations.createNewFolderWithDateTimeName("paperReferralDownloadFolderPath");
@@ -27,13 +27,13 @@ public class PrintPaperReferralInternalTransactionTest extends TestBase {
     openBuragAppWithCustomCapabilities(directory);
   }
 
-/*  @AfterMethod
+/*  @AfterMethod(alwaysRun = true)
   public void afterTest() {
     driver.quit();
   }*/
 
   //=============================
-  @Test(description = "طباعة الإحالة الورقية للمعاملات الداخلية [2.9]")
+  @Test(description = "طباعة الإحالة الورقية للمعاملات الداخلية [2.9]",groups = {"Daily"})
   @Description("من التعديل على المعاملة يتم طباعة ورقة الإحالة الورقية[2.9]")
   public void printPaperReferralForInternalTransaction() {
 

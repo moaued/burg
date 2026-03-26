@@ -20,7 +20,7 @@ public class AddAttachmentToGeneralIncomingTransactionTest extends TestBase {
 
     String directory;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void beforeTest() {
         testData = new SHAFT.TestData.JSON("appData.json");
         GeneralOperations.createNewFolderWithDateTimeName("assignmentPaperDownloadFolderPath");
@@ -28,13 +28,13 @@ public class AddAttachmentToGeneralIncomingTransactionTest extends TestBase {
         openBuragAppWithCustomCapabilities(directory);
     }
 //
-//    @AfterMethod
+//    @AfterMethod(alwaysRun = true)
 //    public void afterTest() {
 //        driver.quit();
 //    }
 
     //=============================
-    @Test(description = "اضافة ملحقات متعددة و طباعة ورقة الاحالة [1.5]")
+    @Test(description = "اضافة ملحقات متعددة و طباعة ورقة الاحالة [1.5]",groups = {"Daily"})
     @Description("اضافة ملحقات متعددة على المعاملة (من خلال الماسح الضوئي و ايقونة الرفع) ومن ثم حفظ المعاملة وطباعة ورقة الإحالة من الخيار الظاهر في النافذة المنبثقة  [1.5]")
     public void addAttachmentToTransaction() {
         SHAFT.TestData.JSON attachmentsData = new SHAFT.TestData.JSON("inTransactionDraftData.json");

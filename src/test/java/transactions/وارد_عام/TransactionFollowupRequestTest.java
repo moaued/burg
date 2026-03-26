@@ -12,19 +12,19 @@ import pages.transactions.*;
 
 public class TransactionFollowupRequestTest extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void beforeTest() {
         testData = new SHAFT.TestData.JSON("appData.json");
         openBuragApp();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void afterTest() {
         driver.quit();
     }
 
     //======================
-    @Test(description = "[1.6.1] اضافة طلب متابعة الى معاملة وارد جهات من خلال تعديل المعاملة")
+    @Test(description = "[1.6.1] اضافة طلب متابعة الى معاملة وارد جهات من خلال تعديل المعاملة",groups = {"Daily"})
     @Description("[1.6.1] اضافة طلب متابعة الى معاملة وارد جهات من خلال تعديل المعاملة")
     public void addFollowupRequestToInDestinationTransaction() {
         SHAFT.TestData.JSON followupData = new SHAFT.TestData.JSON("inTransactionDraftData.json");
@@ -62,7 +62,7 @@ public class TransactionFollowupRequestTest extends TestBase {
     }
 //
 //    //======================
-    @Test(description = "[1.6.2] اضافة طلب متابعة الى معاملة وارد أفراد من خلال تعديل المعاملة")
+    @Test(description = "[1.6.2] اضافة طلب متابعة الى معاملة وارد أفراد من خلال تعديل المعاملة",groups = {"Daily"})
     @Description("[1.6.2] اضافة طلب متابعة الى معاملة وارد أفراد من خلال تعديل المعاملة")
     public void addFollowupRequestToInIndividualTransaction() {
         SHAFT.TestData.JSON followupData = new SHAFT.TestData.JSON("inTransactionDraftData.json");
@@ -100,7 +100,7 @@ public class TransactionFollowupRequestTest extends TestBase {
     }
 
     //======================
-    @Test(description = "[1.6.3] اضافة طلب متابعة الى معاملة وارد أفراد من ايقونة الاحالة المباشرة")
+    @Test(description = "[1.6.3] اضافة طلب متابعة الى معاملة وارد أفراد من ايقونة الاحالة المباشرة",groups = {"Daily"})
     @Description("[1.6.3] اضافة طلب متابعة الى معاملة وارد أفراد من ايقونة الاحالة المباشرة")
     public void addFollowupRequestFromIndividualTransactionCard() {
         SHAFT.TestData.JSON followupData = new SHAFT.TestData.JSON("inTransactionDraftData.json");
@@ -138,7 +138,7 @@ public class TransactionFollowupRequestTest extends TestBase {
     }
 
     //======================
-    @Test(description = "[1.6.4] اضافة طلب متابعة الى معاملة وارد جهات من ايقونة الاحالة المباشرة")
+    @Test(description = "[1.6.4] اضافة طلب متابعة الى معاملة وارد جهات من ايقونة الاحالة المباشرة",groups = {"Daily"})
     @Description("[1.6.4] اضافة طلب متابعة الى معاملة وارد جهات من ايقونة الاحالة المباشرة")
     public void addFollowupRequestFromDestinationTransactionCard() {
         SHAFT.TestData.JSON followupData = new SHAFT.TestData.JSON("inTransactionDraftData.json");

@@ -27,7 +27,7 @@ public class AddAttachmentToInternalTransactionTest extends TestBase {
 
   String directory;
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun = true)
   public void beforeTest() {
     testData = new SHAFT.TestData.JSON("appData.json");
     GeneralOperations.createNewFolderWithDateTimeName("assignmentPaperDownloadFolderPath");
@@ -36,13 +36,13 @@ public class AddAttachmentToInternalTransactionTest extends TestBase {
   }
 
   //
-//    @AfterMethod
+//    @AfterMethod(alwaysRun = true)
 //    public void afterTest() {
 //        driver.quit();
 //    }
 
   //=============================
-  @Test(description = "اضافة ملحقات متعددة و طباعة ورقة الاحالة [2.3]")
+  @Test(description = "اضافة ملحقات متعددة و طباعة ورقة الاحالة [2.3]",groups = {"Daily"})
   @Description("اضافة ملحقات متعددة على المعاملة (من خلال الماسح الضوئي و ايقونة الرفع) ومن ثم حفظ المعاملة وطباعة ورقة الإحالة من الخيار الظاهر في النافذة المنبثقة[2.3]")
   public void addAttachmentToInternalTransaction() {
 
