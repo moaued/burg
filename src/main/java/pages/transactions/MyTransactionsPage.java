@@ -12,6 +12,8 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import utils.ElementsOperations;
 
 public class MyTransactionsPage extends TransactionsNavigationPanelComponent{
 
@@ -72,6 +74,9 @@ public class MyTransactionsPage extends TransactionsNavigationPanelComponent{
 
   private By confirmRejectButton =
       By.xpath("//button[contains(.,'إرجاع')]");
+
+  private By adminActionsMenuLink =
+      By.xpath("//span[text()='اجراءات معاملات الادارة']");
 
 
 
@@ -257,6 +262,31 @@ public class MyTransactionsPage extends TransactionsNavigationPanelComponent{
     // تأكيد الرفض
     driver.element()
         .click(confirmRejectButton);
+  }
+
+  @Step("الذهاب إلى صفحة إجراءات معاملات الإدارة")
+  public AdminActionsPage navigateToAdminActions() {
+//    By adminActionsMenuLink = By.xpath("//span[text()='اجراءات معاملات الادارة']");
+    driver.element()
+        .waitUntil(ElementsOperations.waitForElementToBeReady(adminActionsMenuLink))
+        .click(adminActionsMenuLink)
+        .waitUntil(ExpectedConditions.invisibilityOfElementLocated(By.id("loadingModal")));
+    return new AdminActionsPage(driver);
+  }
+  @Step("الذهاب الى سلة معاملاتي")
+  public MyTransactionsPage navigateToMyTransactiontest() {
+    driver.element().scrollToElement(myTransactionsMenu)
+        .click(myTransactionsMenu);
+    return new MyTransactionsPage(driver);
+  }
+
+  @Step("الذهاب الى المعاملات الصادرة")
+  public OutTransactionsPage navigateToExportedTransactions1() {
+    By exportedTransactionsTab =
+        By.xpath("//a[.//span[text()='المعاملات الصادرة']]");
+
+    driver.element().click(exportedTransactionsTab);
+    return new OutTransactionsPage(driver);
   }
 
 }

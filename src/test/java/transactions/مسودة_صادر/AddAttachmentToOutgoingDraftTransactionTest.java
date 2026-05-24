@@ -27,7 +27,7 @@ public class AddAttachmentToOutgoingDraftTransactionTest extends TestBase {
     directory = GeneralOperations.getAbsolutePath();
     openBuragAppWithCustomCapabilities(directory);
   }
-    @AfterMethod
+//    @AfterMethod
 //    public void afterTest() {
 //        driver.quit();
 //    }

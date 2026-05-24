@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 public class SentTransactionsPage extends TransactionsNavigationPanelComponent{
 
   private By revertButton = By.cssSelector("a[data-type='Revert']");
+  private By SentManagementTab = By.xpath("//a[text()='مرسلة الادارة']");
 
   @Getter
   private TransactionsOperationsComponent transactionsOperationsComponent;
@@ -28,6 +29,17 @@ public class SentTransactionsPage extends TransactionsNavigationPanelComponent{
     driver.element().click(revertButton);
     return this;
   }
+  @Step("الذهاب الى سلة المعاملات المرسلة تبويبة مرسلة الادارة")
+  public SentTransactionsPage switchToSentManagementTab() {
+    driver.element()
+        .click(SentManagementTab);
+    return this;
+  }
 
+  @Step("التحقق من وجود المعاملة رقم '{transactionNumber}' في المعاملات الصادرة")
+  public boolean isTransactionPresent(String transactionNumber) {
+    By transactionCell = By.xpath("//*[contains(text(),'" + transactionNumber + "')]");
+    return driver.element().getElementsCount(transactionCell) > 0;
+  }
 
 }

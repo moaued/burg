@@ -53,7 +53,8 @@
     "orgUnitName": "مكتب الوزير",
     "actionType": "فحص الاجراء",
     "deliveryMethod": "ورقي",
-    "followUpUnit": "شعبة نظام براق"
+    "followUpUnit": "شعبة نظام براق",
+    "employeeName": "مدير النظام"
   },
   "referral2":{
     "orgUnitNum": "3",
@@ -61,7 +62,8 @@
     "actionType": "اختبارالاجراء",
     "deliveryMethod": "الكتروني",
     "followUpUnit": "شعبة نظام براق",
-    "rejectReason": "رفض المعاملة للاختبار"
+    "rejectReason": "رفض المعاملة للاختبار",
+    "employeeName": "أحمد علاءالدين"
   },
   "assignmentPaper": {
     "orgUnitName": "مكتب نائب الوزير"

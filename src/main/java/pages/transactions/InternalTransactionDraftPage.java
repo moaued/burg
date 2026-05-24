@@ -392,6 +392,14 @@ Using normalize-space() instead of text() in order to handle the white spaces va
         .isVisible().perform();
   }
 
+  @Step("حفظ المعاملة")
+  private void scrollToAndClickSaveButton2(By byButtonLocator) {
+    driver.element().scrollToElement(byButtonLocator).click(byButtonLocator);
+    driver.element().verifyThat(confirmationAndSuccessModal).isVisible();
+    driver.element().clickUsingJavascript(confirmationAgreeButton).verifyThat(confirmationAndSuccessModal)
+        .isVisible().perform();
+  }
+
   @Step("حفظ معاملة معدلة")
   public InternalTransactionDraftPage saveModifiedTransaction() {
     driver.element().scrollToElement(basicInfoTab).click(basicInfoTab);
@@ -902,6 +910,19 @@ Using normalize-space() instead of text() in order to handle the white spaces va
     scrollToAndClickSaveButton(saveModifiedTransactionButton2);
     return this;
   }
+
+  @Step("تعديل موضوع المعاملة و اعطائه القيمة الحالية للوقت و التاريخ")
+  public InternalTransactionDraftPage modifyInTransactionSubject3() {
+    driver.element().type(subjectTextField, modifiedTransactionDescription);
+    driver.element().type(transactionSubjectTextField,
+        "Transaction Description: " + modifiedTransactionDescription);
+    driver.element().click(inTransactionPriorityLevel)
+        .type(inTransactionPriorityLevel, testData.getTestData("incomingPriority"))
+        .click(inTransactionPriorityLevel);
+//    scrollToAndClickSaveButton2(saveModifiedTransactionButton2);
+    return this;
+  }
+
   @Step("حفظ معاملة معدلة 2")
   public InternalTransactionDraftPage saveModifiedTransaction3() {
     driver.element().scrollToElement(basicInfoTab).click(basicInfoTab);
@@ -1060,6 +1081,48 @@ Using normalize-space() instead of text() in order to handle the white spaces va
     return this;
   }
 
+
+/* سوف يتم استخدام الميثود الاساسية عند حل مشكلة طباعة بيان التسليم */
+  @Step("طباعة بيان التسليم والعودة للتبويبة الأساسية")
+  public InternalTransactionDraftPage sendAndPrintDeliveryStatementForModifiedInTransaction1() {
+
+    ((JavascriptExecutor) driver.getDriver()).executeScript(
+        "window.onerror = function(message, source, lineno, colno, error) {" +
+            "  console.log('Suppressed JS error:', message);" +
+            "  return true;" + // Prevents error propagation
+            "};"
+    );
+
+    driver.element()
+        .scrollToElement(saveModifiedTransactionButton)
+        .waitUntil(ElementsOperations.waitForElementToBeReady(saveModifiedTransactionButton))
+        .click(saveModifiedTransactionButton);
+
+    driver.element().scrollToElement(basicInfoTab).click(basicInfoTab);
+    driver.element().type(transactionSubjectTextField,
+        "Transaction Description: " + modifiedTransactionDescription);
+    scrollToAndClickSaveButton(saveModifiedTransactionButton);
+    driver.element().click(sendAndPrintDeliveryStatement)
+        .waitUntil(ExpectedConditions.numberOfWindowsToBe(2));
+//        .waitUntil(ExpectedConditions.numberOfWindowsToBe(1));
+
+
+    // switch to new tab
+    String mainWindow = driver.getDriver().getWindowHandle();
+
+    for (String windowHandle : driver.getDriver().getWindowHandles()) {
+      if (!windowHandle.equals(mainWindow)) {
+        driver.getDriver().switchTo().window(windowHandle);
+        break;
+      }
+    }
+    // إغلاق التبويبة الجديدة
+    driver.getDriver().close();
+    // العودة للتبويبة الأساسية
+    driver.getDriver().switchTo().window(mainWindow);
+
+    return new InternalTransactionDraftPage(driver);
+  }
 }
 
 

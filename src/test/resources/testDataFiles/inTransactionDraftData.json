@@ -67,6 +67,15 @@
     "followUpUnit": "شعبة نظام براق",
     "rejectReason": "رفض المعاملة للاختبار"
   },
+  "referral3":{
+    "orgUnitNum": "35",
+    "orgUnitName": "مركز الاتصالات الإدارية - وكالة الوزارة للخدمات المشتركة",
+    "actionType": "اختبارالاجراء",
+    "deliveryMethod": "الكتروني",
+    "followUpUnit": "شعبة نظام براق",
+    "rejectReason": "رفض المعاملة للاختبار",
+    "departmentEmployee": "وكالة الوزارة للخدمات المشتركة"
+  },
   "assignmentPaper": {
     "orgUnitName": "مكتب نائب الوزير"
   }

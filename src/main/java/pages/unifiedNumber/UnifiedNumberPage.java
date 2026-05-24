@@ -3,6 +3,7 @@ package pages.unifiedNumber;
 import com.shaft.driver.SHAFT.GUI.WebDriver;
 import components.HorizontalMenusComponent;
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import pages.transactions.InTransactionDraftPage;
@@ -24,6 +25,9 @@ public class UnifiedNumberPage extends HorizontalMenusComponent {
   private By referralsButton = By.cssSelector("a[data-original-title='الاحالات']") ;
 
   private By transferButton = By.cssSelector("a[data-original-title='تحويل ']");
+
+  private By printReviewerTicketIcon =
+      By.xpath("//a[@data-original-title='طباعة تذكرة مراجعة']");
 
   public UnifiedNumberPage(WebDriver driver) {
     super(driver);
@@ -84,5 +88,66 @@ public class UnifiedNumberPage extends HorizontalMenusComponent {
 
     return new InTransactionDraftPage(driver);
   }
+
+
+  // ── New locators: referral table cells (spec-supplied XPaths) ────────────
+  private By referralFromOrgUnit =
+      By.xpath("(//td[@data-name='FromOrgUnitName'])[1]");
+
+  private By referralToOrgUnit =
+      By.xpath("//tbody/tr[1]//td[@data-name='ToOrgUnitName']");
+
+  private By referralAssignmentDate =
+      By.xpath("//tbody/tr[1]/td[contains(@data-th,'تاريخ ووقت الإحالة')]");
+
+  // ── Captured referral values exposed to the test layer via @Getter ────────
+  @Getter
+  private String capturedFromOrgUnit;
+
+  @Getter
+  private String capturedToOrgUnit;
+
+  @Getter
+  private String capturedAssignmentDate;
+
+
+  @Step("قراءة بيانات الإحالة الأولى من جدول الإحالات")
+  public UnifiedNumberPage captureReferralTableData() {
+    driver.element()
+        .waitUntil(ElementsOperations.waitForElementToBeReady(referralFromOrgUnit));
+    capturedFromOrgUnit    = driver.element().getText(referralFromOrgUnit);
+    capturedToOrgUnit      = driver.element().getText(referralToOrgUnit);
+    capturedAssignmentDate = driver.element().getText(referralAssignmentDate);
+    return this;
+  }
+
+  @Step("التحقق من عدم فراغ خانة الجهة المُحيلة في جدول الإحالات")
+  public boolean isReferralFromOrgUnitPresent() {
+    String value = driver.element().getText(referralFromOrgUnit);
+    return value != null && !value.isBlank();
+  }
+
+  @Step("التحقق من عدم فراغ خانة الجهة المُحال إليها في جدول الإحالات")
+  public boolean isReferralToOrgUnitPresent() {
+    String value = driver.element().getText(referralToOrgUnit);
+    return value != null && !value.isBlank();
+  }
+
+  @Step("التحقق من عدم فراغ خانة تاريخ ووقت الإحالة في جدول الإحالات")
+  public boolean isReferralAssignmentDatePresent() {
+    String value = driver.element().getText(referralAssignmentDate);
+    return value != null && !value.isBlank();
+  }
+
+  @Step("طباعة تذكرة مراجعة من شاشة الرقم الموحد")
+  public UnifiedNumberPage clickPrintReviewerTicket(){
+    driver.element()
+        .click(printReviewerTicketIcon);
+
+    // (الاحالات)فتح سجل المعاملة
+    driver.element().click(referralsButton);
+    return this;
+  }
+
 
 }
