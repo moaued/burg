@@ -1,7 +1,6 @@
 pipeline {
 agent any
 
-```
 tools {
     jdk 'JDK21'
     maven 'Maven'
@@ -50,6 +49,5 @@ post {
         archiveArtifacts artifacts: 'target/surefire-reports/**', fingerprint: true
     }
 }
-```
 
 }
