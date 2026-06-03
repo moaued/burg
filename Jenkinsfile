@@ -33,11 +33,16 @@ pipeline {
                 def allureHome = tool 'Allure'
 
                 bat """
-                "${allureHome}\\bin\\allure.bat" generate target\\allure-results --clean -o target\\allure-report
+                "${allureHome}\\bin\\allure.bat" generate allure-results --clean -o allure-report
                 """
             }
+               allure([
+                        includeProperties: false,
+                        jdk: '',
+                        results: [[path: 'allure-results']]
+                    ])
 
-            archiveArtifacts artifacts: 'target/allure-report/**'
+            archiveArtifacts artifacts: 'allure-report/**'
         }
     }
 
