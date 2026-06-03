@@ -24,21 +24,30 @@ pipeline {
                 '''
             }
         }
+
+        stage('Generate Allure Report') {
+            steps {
+                script {
+                    def allureHome = tool 'Allure'
+
+                    bat """
+                    dir allure-results
+                    "${allureHome}\\bin\\allure.bat" generate allure-results --clean -o allure-report
+                    """
+                }
+            }
+        }
     }
 
     post {
         always {
-            script {
-                bat 'dir'
-                bat 'dir allure-results'
 
-                def allureHome = tool 'Allure'
+            // نشر التقرير داخل Jenkins Allure Plugin
+            allure(
+                results: [[path: 'allure-results']]
+            )
 
-                bat """
-                "${allureHome}\\bin\\allure.bat" generate allure-results --clean -o allure-report
-                """
-            }
-
+            // الاحتفاظ بنسخة HTML كـ Artifact
             archiveArtifacts artifacts: 'allure-report/**', fingerprint: true
         }
     }
