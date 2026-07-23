@@ -7,27 +7,24 @@ import io.qameta.allure.Step;
 import java.io.File;
 import org.openqa.selenium.By;
 
-public class TasksReportPage extends ReportsNavigationPanelComponent{
+public class FollowUpEmployeePerformanceReportPage extends ReportsNavigationPanelComponent {
 
   private By transactionTypeMenu = By.id("TransactionType");
-  private By transactionFromDate = By.id("fromDateCal");
-  private By transactionToDate = By.id("toDateCal");
+  private By transactionFromDate = By.xpath("//input[@id='fromDateCal']");
+  private By transactionToDate = By.xpath("//input[@id='toDateCal']");
   private By generateReportButton = By.id("btnSearch");
-  private By loadingSpinner = By.id("loadingModal");
-  private By reportResultsCount = By.id("TotalCount");
-  private By transactionTypeInReport = By.id("lblTransactionType");
-  private By transactionDateInReport = By.id("lblFromTo");
+  private By loadingSpinner = By.xpath("//div[@id='loadingModal']");
   private By reportResultsBody = By.className("tbody");
   private By reportResultsGridRows = By.xpath("//tr[contains(@class,'datarow')]");
 
-  private By btnExportPdf = By.id("TransactionPrintPdf");
-  private By btnExportExcel = By.id("TransactionPrintExcel");
+  private By btnExportPdf = By.xpath(
+      "//button[contains(text(),'تصدير Pdf')]");
 
-  public TasksReportPage(SHAFT.GUI.WebDriver driver) {
+  public FollowUpEmployeePerformanceReportPage(SHAFT.GUI.WebDriver driver) {
     super(driver, new HorizontalMenusComponent(driver));
-
   }
 
+/*
   @Step("الحصول على عدد صفوف التقرير")
   public int getResultsCount() {
     driver.element().waitUntilNumberOfElementsToBeMoreThan(reportResultsCount, 0);
@@ -43,7 +40,7 @@ public class TasksReportPage extends ReportsNavigationPanelComponent{
   @Step("الحصول على نوع المعاملة داخل التقرير")
   public String getTransactionTypeInReport() {
     return driver.element().getText(transactionTypeInReport);
-  }
+  }*/
 
   @Step("التأكد  من وجود مساحة عرض نتائج التقرير")
   public boolean isResultsGridDisplayed() {
@@ -53,9 +50,9 @@ public class TasksReportPage extends ReportsNavigationPanelComponent{
   }
 
   @Step("عرض التقرير")
-  public TasksReportPage generateReportForTransactionType(
+  public FollowUpEmployeePerformanceReportPage generateReportForTransactionType(
       String fromDate, String toDate, String selectedTransactionType) {
-    driver.element().select(transactionTypeMenu, selectedTransactionType);
+//    driver.element().select(transactionTypeMenu, selectedTransactionType);
     driver.element().type(transactionFromDate, fromDate)
         .type(transactionToDate, toDate)
         .click(generateReportButton)
@@ -64,17 +61,12 @@ public class TasksReportPage extends ReportsNavigationPanelComponent{
   }
 
 
-  @Step(" تصدير PDF في تقرير المهام")
-  public TasksReportPage clickExportPdf() {
+  @Step(" تصدير PDF في تقرير قياس أداء موظفي المتابعة")
+  public FollowUpEmployeePerformanceReportPage clickExportPdf() {
     driver.element().click(btnExportPdf);
     return this;
   }
-  @Step(" تصدير Excel في تقرير المهام")
-  public TasksReportPage clickExportExcel() {
-    driver.element().click(btnExportExcel);
-    return this;
-  }
-  @Step("التحقق من  تصدير ملفات الPDF و الExcel في تقرير المهام")
+  @Step("التحقق من  تصدير ملفات الPDF  في تقرير قياس أداء موظفي المتابعة")
   public boolean waitUntilFileDownloaded(String extension) {
 
     File downloadFolder =
@@ -101,6 +93,5 @@ public class TasksReportPage extends ReportsNavigationPanelComponent{
 
     return false;
   }
-
 
 }

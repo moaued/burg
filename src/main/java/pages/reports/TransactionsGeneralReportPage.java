@@ -4,6 +4,7 @@ import com.shaft.driver.SHAFT;
 import components.HorizontalMenusComponent;
 import components.ReportsNavigationPanelComponent;
 import io.qameta.allure.Step;
+import java.io.File;
 import org.openqa.selenium.By;
 
 public class TransactionsGeneralReportPage extends ReportsNavigationPanelComponent {
@@ -18,6 +19,10 @@ public class TransactionsGeneralReportPage extends ReportsNavigationPanelCompone
   private By transactionDateInReport = By.id("lblFromTo");
   private By reportResultsBody = By.className("tbody");
   private By reportResultsGridRows = By.xpath("//tr[contains(@class,'datarow')]");
+  private By btnPrint = By.id("TransactionPrint");
+  private By btnExportExcel = By.xpath("//button[contains(text(),'تصدير Excel')]");
+
+
 
   public TransactionsGeneralReportPage(SHAFT.GUI.WebDriver driver) {
     super(driver, new HorizontalMenusComponent(driver));
@@ -68,6 +73,45 @@ public class TransactionsGeneralReportPage extends ReportsNavigationPanelCompone
         .click(generateReportButton)
         .verifyThat(loadingSpinner).isVisible();
     return this;
+  }
+
+
+  @Step(" تصدير PDF في تقرير المعاملات الشامل")
+  public TransactionsGeneralReportPage clickExportPdf() {
+    driver.element().click(btnPrint);
+    return this;
+  }
+  @Step(" تصدير Excel في تقرير المعاملات الشامل")
+  public TransactionsGeneralReportPage clickExportExcel() {
+    driver.element().click(btnExportExcel);
+    return this;
+  }
+  @Step("التحقق من  تصدير ملفات الPDF و الExcel في تقرير المعاملات الشامل")
+  public boolean waitUntilFileDownloaded(String extension) {
+
+    File downloadFolder =
+        new File(System.getProperty("user.home") + "/Downloads");
+
+    long timeout = System.currentTimeMillis() + 30000;
+
+    while (System.currentTimeMillis() < timeout) {
+
+      File[] files = downloadFolder.listFiles(
+          file -> file.getName().toLowerCase().endsWith(extension)
+      );
+
+      if (files != null && files.length > 0) {
+        return true;
+      }
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        return false;
+      }
+    }
+
+    return false;
   }
 
 }

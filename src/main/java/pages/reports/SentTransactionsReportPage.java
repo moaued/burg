@@ -4,6 +4,7 @@ import com.shaft.driver.SHAFT;
 import components.HorizontalMenusComponent;
 import components.ReportsNavigationPanelComponent;
 import io.qameta.allure.Step;
+import java.io.File;
 import org.openqa.selenium.By;
 import utils.ElementsOperations;
 
@@ -20,6 +21,9 @@ public class SentTransactionsReportPage extends ReportsNavigationPanelComponent 
   private By transactionDateInReport = By.id("lblFromTo");
   private By reportResultsBody = By.className("tbody");
   private By reportResultsGridRows = By.xpath("//tr[contains(@class,'datarow')]");
+
+  private By btnExportPdf = By.id("TransactionPrintPdf");
+  private By btnExportExcel = By.id("TransactionPrintExcel");
 
   public SentTransactionsReportPage(SHAFT.GUI.WebDriver driver) {
     super(driver, new HorizontalMenusComponent(driver));
@@ -71,4 +75,41 @@ public class SentTransactionsReportPage extends ReportsNavigationPanelComponent 
     return this;
   }
 
+  @Step(" تصدير PDF في تقرير المعاملات المرسلة")
+  public SentTransactionsReportPage clickExportPdf() {
+    driver.element().click(btnExportPdf);
+    return this;
+  }
+  @Step(" تصدير Excel في تقرير المعاملات المرسلة")
+  public SentTransactionsReportPage clickExportExcel() {
+    driver.element().click(btnExportExcel);
+    return this;
+  }
+  @Step("التحقق من  تصدير ملفات الPDF و الExcel في تقرير المعاملات المرسلة")
+  public boolean waitUntilFileDownloaded(String extension) {
+
+    File downloadFolder =
+        new File(System.getProperty("user.home") + "/Downloads");
+
+    long timeout = System.currentTimeMillis() + 30000;
+
+    while (System.currentTimeMillis() < timeout) {
+
+      File[] files = downloadFolder.listFiles(
+          file -> file.getName().toLowerCase().endsWith(extension)
+      );
+
+      if (files != null && files.length > 0) {
+        return true;
+      }
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        return false;
+      }
+    }
+
+    return false;
+  }
 }

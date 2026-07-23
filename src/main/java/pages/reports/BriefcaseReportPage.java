@@ -4,6 +4,7 @@ import com.shaft.driver.SHAFT;
 import components.HorizontalMenusComponent;
 import components.ReportsNavigationPanelComponent;
 import io.qameta.allure.Step;
+import java.io.File;
 import org.openqa.selenium.By;
 
 public class BriefcaseReportPage extends ReportsNavigationPanelComponent {
@@ -17,6 +18,9 @@ public class BriefcaseReportPage extends ReportsNavigationPanelComponent {
   private By reportResultsBody = By.className("tbody");
   private By resultsTransactionNumber = By.xpath("//td[@data-name='Number']");
   private String resultTransactionNumberText = "(//td[@data-name='Number'])[%s]";
+
+  private By btnExportPdf = By.id("TransactionPrint");
+  private By btnExportExcel = By.xpath("//button[contains(text(),'تصدير Excel')]");
 
   public BriefcaseReportPage(SHAFT.GUI.WebDriver driver) {
     super(driver, new HorizontalMenusComponent(driver));
@@ -60,6 +64,45 @@ public class BriefcaseReportPage extends ReportsNavigationPanelComponent {
     int randomIndex = (int) (Math.random() * numberOfResults) + 1;
     return driver.element()
         .getText(By.xpath(String.format(resultTransactionNumberText, randomIndex)));
+  }
+
+
+  @Step(" تصدير PDF في تقرير حقيبة العرض")
+  public BriefcaseReportPage clickExportPdf() {
+    driver.element().click(btnExportPdf);
+    return this;
+  }
+  @Step(" تصدير Excel في تقرير حقيبة العرض")
+  public BriefcaseReportPage clickExportExcel() {
+    driver.element().click(btnExportExcel);
+    return this;
+  }
+  @Step("التحقق من  تصدير ملفات الPDF و الExcel في تقرير حقيبة العرض")
+  public boolean waitUntilFileDownloaded(String extension) {
+
+    File downloadFolder =
+        new File(System.getProperty("user.home") + "/Downloads");
+
+    long timeout = System.currentTimeMillis() + 30000;
+
+    while (System.currentTimeMillis() < timeout) {
+
+      File[] files = downloadFolder.listFiles(
+          file -> file.getName().toLowerCase().endsWith(extension)
+      );
+
+      if (files != null && files.length > 0) {
+        return true;
+      }
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        return false;
+      }
+    }
+
+    return false;
   }
 
 }

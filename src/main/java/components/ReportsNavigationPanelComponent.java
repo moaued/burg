@@ -1,12 +1,17 @@
 package components;
 
+import com.helger.commons.mutable.AbstractMutableNumeric;
 import com.shaft.driver.SHAFT;
 import io.qameta.allure.Step;
+import java.io.File;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import pages.reports.BriefcaseReportPage;
+import pages.reports.EmployeePermissionsReportPage;
 import pages.reports.FollowUpDetailsReportPage;
+import pages.reports.FollowUpEmployeePerformanceReportPage;
 import pages.reports.FollowUpReportPage;
+import pages.reports.PerformanceMeasurementReportPage;
 import pages.reports.SentTransactionsReportPage;
 import pages.reports.TasksReportPage;
 import pages.reports.TransactionsFollowUpReportPage;
@@ -30,6 +35,12 @@ public class ReportsNavigationPanelComponent {
       "//a[contains(@href,'/SentTransactionReport')]");
   private By briefcaseDisplayReportEntery = By.xpath(
       "//a[contains(@href,'/BriefcaseDisplayReport')]");
+  private By employeePermissionsReportEntery  = By.xpath(
+      "//a[contains(@href,'UsersPermissionsReport')]");
+  private By followUpEmployeePerformanceReportEntery  = By.xpath(
+      "//a[contains(@href,'PerformanceMeasurementReportFollowUpEmp')]");
+  private By performanceMeasurementReportEntery  =
+      By.xpath("//a[.//span[text()='مؤشر قياس الاداء']]");
 
 
   public ReportsNavigationPanelComponent(SHAFT.GUI.WebDriver driver,
@@ -79,4 +90,63 @@ public class ReportsNavigationPanelComponent {
     driver.element().click(briefcaseDisplayReportEntery);
     return new BriefcaseReportPage(driver);
   }
+
+  @Step("الذهاب الى صفحة ’تقرير صلاحيات الموظفين’")
+  public EmployeePermissionsReportPage navigateToEmployeePermissionsReport() {
+    driver.element().click(employeePermissionsReportEntery);
+    return new EmployeePermissionsReportPage(driver);
+  }
+
+  @Step("الذهاب الى صفحة ’تقرير قياس أداء موظفي المتابعة’")
+  public FollowUpEmployeePerformanceReportPage navigateToFollowUpEmployeePerformanceReport() {
+    driver.element().click(followUpEmployeePerformanceReportEntery);
+    return new FollowUpEmployeePerformanceReportPage(driver);
+  }
+
+  @Step("الذهاب الى صفحة ’تقرير مؤشر قياس الاداء’")
+  public PerformanceMeasurementReportPage navigateToPerformanceMeasurementReport() {
+    driver.element().click(performanceMeasurementReportEntery);
+    return new PerformanceMeasurementReportPage(driver);
+  }
+
+
+/*  protected By pdfButton;
+  protected By excelButton;
+
+  @Step(" تصدير PDF في التقارير")
+  public void clickExportPdf() {
+    driver.element().click(pdfButton);
+  }
+
+  @Step(" تصدير Excel في التقارير")
+  public void clickExportExcel() {
+    driver.element().click(excelButton);
+  }
+  @Step("التحقق من  تصدير ملفات الPDF و الExcel في التقارير")
+  public boolean waitUntilFileDownloaded(String extension) {
+    File downloadFolder =
+        new File(System.getProperty("user.home") + "/Downloads");
+
+    long timeout = System.currentTimeMillis() + 30000;
+
+    while (System.currentTimeMillis() < timeout) {
+
+      File[] files = downloadFolder.listFiles(
+          file -> file.getName().toLowerCase().endsWith(extension)
+      );
+
+      if (files != null && files.length > 0) {
+        return true;
+      }
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        return false;
+      }
+    }
+
+    return false;
+  }*/
+
 }

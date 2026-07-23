@@ -4,6 +4,7 @@ import com.shaft.driver.SHAFT;
 import components.HorizontalMenusComponent;
 import components.ReportsNavigationPanelComponent;
 import io.qameta.allure.Step;
+import java.io.File;
 import org.openqa.selenium.By;
 
 public class TransactionsReportPage extends ReportsNavigationPanelComponent {
@@ -18,6 +19,9 @@ public class TransactionsReportPage extends ReportsNavigationPanelComponent {
   private By transactionDateInReport = By.id("lblFromTo");
   private By reportResultsBody = By.className("tbody");
   private By reportResultsGridRows = By.xpath("//tr[contains(@class,'datarow')]");
+
+  private By btnExportPdf = By.id("TransactionPrintPdf");
+  private By btnExportExcel = By.id("TransactionPrintExcel");
 
   public TransactionsReportPage(SHAFT.GUI.WebDriver driver) {
     super(driver, new HorizontalMenusComponent(driver));
@@ -56,5 +60,54 @@ public class TransactionsReportPage extends ReportsNavigationPanelComponent {
         .verifyThat(loadingSpinner).isVisible();
     return this;
   }
+
+
+  @Step(" تصدير PDF في تقرير المعاملات")
+  public TransactionsReportPage clickExportPdf() {
+    driver.element().click(btnExportPdf);
+    return this;
+  }
+  @Step(" تصدير Excel في تقرير المعاملات")
+  public TransactionsReportPage clickExportExcel() {
+    driver.element().click(btnExportExcel);
+    return this;
+  }
+/*  public boolean isPdfOpened() {
+    return driver.browser().getCurrentURL().contains(".pdf");
+  }*/
+/*  public boolean isExcelDownloaded(String fileName) {
+    File file = new File(System.getProperty("user.home")
+        + "/Downloads/" + fileName);
+
+    return file.exists();
+  }*/
+  @Step("التحقق من  تصدير ملفات الPDF و الExcel في تقرير المعاملات ")
+  public boolean waitUntilFileDownloaded(String extension) {
+
+    File downloadFolder =
+        new File(System.getProperty("user.home") + "/Downloads");
+
+    long timeout = System.currentTimeMillis() + 30000;
+
+    while (System.currentTimeMillis() < timeout) {
+
+      File[] files = downloadFolder.listFiles(
+          file -> file.getName().toLowerCase().endsWith(extension)
+      );
+
+      if (files != null && files.length > 0) {
+        return true;
+      }
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
 
 }
